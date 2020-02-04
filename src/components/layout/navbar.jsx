@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Navbar, NavDropdown, Nav, Form, FormControl } from 'react-bootstrap';
 import Auxiliary from '../auxillary/Auxillary.jsx';
-import "./css/navbar.css"
+import "../../public/css/navbar.css"
 const navbar = (props) => {
     return (
         <Auxiliary >

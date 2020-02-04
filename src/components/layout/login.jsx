@@ -1,5 +1,5 @@
 import React from 'react';
-import "./css/login.css";
+import "../../public/css/login.css";
 import { Button, Navbar, Nav } from 'react-bootstrap';
 
 const login = () => {
