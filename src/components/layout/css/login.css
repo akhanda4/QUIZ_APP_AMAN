@@ -1,0 +1,29 @@
+.main-content{
+    font-size: 1rem;
+    width: 24rem;
+    height: 20rem;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: auto;
+    margin-top: 6rem;
+    border: 1px solid rgb(255, 251, 251);
+    padding: 55px 55px 140px 55px;
+}
+
+.inputs{
+    margin-top: 0!important;
+}
+.inputs{
+    padding: 1rem 1rem;
+    width: 17rem;
+    background-color: rgb(247, 243, 243);
+    border: none;
+    margin-bottom: 1rem;
+}
+.custom_btn{
+    padding: 1rem 1rem;
+    width: 17rem;
+    background-color: #212529;
+    border: 1px solid white;
+    color:white
+}
