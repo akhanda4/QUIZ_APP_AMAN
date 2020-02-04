@@ -9,9 +9,6 @@ export default class App extends PureComponent {
   constructor(props) {
     super(props);
   }
-  adminLogin = () => {
-
-  }
   render() {
     return (
       <BrowserRouter>
