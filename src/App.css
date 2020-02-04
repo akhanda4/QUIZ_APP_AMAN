@@ -1,5 +1,23 @@
-* {
-  margin-top: 1%;
-  height: auto;
-  text-align: center;
+@media(max-width: 990px){
+    .navbar-collapse button{
+        text-align: center;
+        margin: auto;
+        margin: 1rem auto;
+        width: 20rem;
+    }
+    .mr-auto{
+        margin: auto;
+    }
+}
+
+@media(max-width: 576px){
+    .navbar-collapse button{
+        text-align: center;
+        margin: auto;
+        margin: 1rem auto;
+        width: 15rem;
+    }
+    .mr-auto{
+        margin: auto;
+    }
 }
