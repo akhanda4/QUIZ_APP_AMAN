@@ -11,11 +11,8 @@ const navbar = (props) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                     </Nav>
-                    <Nav className="mr-auto">
-                        <Button size="lg" variant="outline-light" href="quiz">Play Quiz</Button>
-                    </Nav>
                     <Nav>
-                        <Button size="lg" variant="outline-info" href="/login">Login</Button>
+                        <Button size="lg" variant="outline-light" href="quiz">Play Quiz</Button>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

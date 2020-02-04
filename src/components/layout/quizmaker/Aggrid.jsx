@@ -35,7 +35,7 @@ class App extends Component {
                     }
                 },
                 {
-                    headerName: "EDIT",
+                    headerName: "Delete",
                     field: "EDIT",
                     icons: {},
                     width: 70,
@@ -56,25 +56,18 @@ class App extends Component {
                     }
                 },
                 {
-                    headerName: "Make", field: "make"
-                },
-                {
-                    headerName: "Model", field: "model"
-                },
-                {
-                    headerName: "Price", field: "price"
+
                 }
             ],
             rowData: [{
                 make: "Toyota", model: "Celica", price: 35000
-            }, {
-                make: "Ford", model: "Mondeo", price: 32000
-            }, {
-                make: "Porsche", model: "Boxter", price: 72000
             }]
         }
     }
-
+    onGridReady = (params) => {
+        this.api = params.api;
+        this.columnApi = params.columnApi;
+    }
     render() {
         return (
             <div
@@ -84,7 +77,9 @@ class App extends Component {
                     width: '600px'
                 }}
             >
+                <div><button>hi</button></div>
                 <AgGridReact
+                    onGridReady={this.onGridReady}
                     columnDefs={this.state.columnDefs}
                     rowData={this.state.rowData}>
                 </AgGridReact>
