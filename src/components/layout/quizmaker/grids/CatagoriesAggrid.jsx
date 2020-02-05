@@ -4,7 +4,6 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
-// import { handleShow, handleHide } from "../../Modal/modal.jsx";
 import Modal from "../../Modal/modal.jsx";
 import $ from "jquery";
 import {
@@ -19,10 +18,10 @@ class App extends Component {
     super(props);
     this.state = {
       columnDefs: [
+        { headerName: "CATAGORY", field: "catagory", width: 360 },
         {
           headerName: "EDIT",
-          field: "EDIT",
-          icons: {},
+          field: "edit",
           width: 70,
           sortable: false,
           cellRendererFramework: params => {
@@ -41,43 +40,58 @@ class App extends Component {
           }
         },
         {
-          headerName: "Delete",
-          field: "EDIT",
-          icons: {},
+          headerName: "DELETE",
+          field: "delete",
           width: 70,
           sortable: false,
           cellRendererFramework: params => {
-            this.setState({ editcelldata: params.data });
+            this.setState({ deletecelldata: params.data });
             return (
               <center>
                 <span
-                  className="bt-edit"
+                  className="bt-delete"
                   id={this.state.rowData.indexOf(params.data)}
-                  onClick={this.editRow}
+                  onClick={this.deleteRow}
                 >
                   <MdDeleteForever />
                 </span>
               </center>
             );
           }
-        },
-        {}
-      ],
-      rowData: [
-        {
-          make: "Toyota",
-          model: "Celica",
-          price: 35000
         }
-      ]
+      ],
+      rowData: null
     };
+  }
+  componentDidMount() {
+    $.ajax({
+      url: "http://localhost:8000/getcatagories",
+      type: "GET",
+      success: function(response) {
+        if (response) {
+          const deletedIdResponse = response.filter(row => {
+            delete row._id;
+            return row;
+          });
+          console.log("as", deletedIdResponse);
+
+          this.setState({
+            rowData: deletedIdResponse
+          });
+        } else {
+          console.log("no response");
+        }
+      }.bind(this),
+      error: function(response) {
+        console.log(response);
+      }
+    });
   }
   onGridReady = params => {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
   addCatagory = params => {
-    // handleShow();
     this.refs.ModalRef.handleShow();
   };
   isAdded = check => {
@@ -87,7 +101,9 @@ class App extends Component {
         type: "GET",
         success: function(response) {
           if (response) {
-            console.log(response);
+            this.setState({
+              rowData: response
+            });
           } else {
             console.log("no response");
           }
@@ -98,6 +114,12 @@ class App extends Component {
       });
     }
   };
+  deleteRow = () => {
+    console.log("deleting row");
+  };
+  editRow = () => {
+    console.log("editing row");
+  };
   render() {
     return (
       <Auxiliary>
@@ -106,7 +128,7 @@ class App extends Component {
           className="ag-theme-balham"
           style={{
             height: "300px",
-            width: "600px"
+            width: "500px"
           }}
         >
           <div className="ag-grid-div">
