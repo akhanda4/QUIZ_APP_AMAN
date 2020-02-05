@@ -5,6 +5,10 @@ import Auxillary from "./components/auxillary/Auxillary.jsx";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Login from "./components/layout/login.jsx";
 import Quizmaker from "./components/layout/quizmaker/quizmaker.jsx";
+import Questions from "./components/layout/quizmaker/quizData/questions.jsx";
+import Catagories from "./components/layout/quizmaker/quizData/catagories.jsx";
+import Subcatagories from "./components/layout/quizmaker/quizData/subcatagories.jsx";
+
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -41,10 +45,13 @@ export default class App extends PureComponent {
               />
             )}
           />
-          <Route path="/admin/catagories" render={() => <Catagories />} />
-          <Route path="/admin/subcatagories" render={() => <Subcatagories />} />
-          <Route path="/admin/questions" render={() => <Questions />} />
-
+          <Route
+            path="/admin/catagories"
+            exact
+            render={() => <Catagories authenticated={this.authenticated} />}
+          />
+          <Route path="/admin/subcatagories" exact component={Subcatagories} />
+          <Route path="/admin/questions" exact component={Questions} />
           {this.state.isAuthenticated ? (
             <Route
               path="/admin"

@@ -3,8 +3,10 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button } from "react-bootstrap";
-import "../../../public/css/Aggrid.css";
+import "../../../../public/css/CatagoriesAggrid.css";
+// import { handleShow, handleHide } from "../../Modal/modal.jsx";
 import Modal from "../../Modal/modal.jsx";
+import $ from "jquery";
 import {
   MdCreate,
   MdNavigateNext,
@@ -74,13 +76,32 @@ class App extends Component {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
-  addCatagory = () => {
-    console.log(this.refs);
+  addCatagory = params => {
+    // handleShow();
+    this.refs.ModalRef.handleShow();
+  };
+  isAdded = check => {
+    if (check === true) {
+      $.ajax({
+        url: "http://localhost:8000/getcatagories",
+        type: "GET",
+        success: function(response) {
+          if (response) {
+            console.log(response);
+          } else {
+            console.log("no response");
+          }
+        }.bind(this),
+        error: function(response) {
+          console.log(response);
+        }
+      });
+    }
   };
   render() {
     return (
       <Auxiliary>
-        <Modal ref={this.ref} />
+        <Modal ref={"ModalRef"} isAdded={this.isAdded} />
         <div
           className="ag-theme-balham"
           style={{
@@ -101,7 +122,7 @@ class App extends Component {
                 <FormControl
                   type="text"
                   placeholder="Search"
-                  className="mr-sm-2"
+                  className="mr-sm-1"
                 />
                 <Button variant="outline-light">Search</Button>
               </Form>
