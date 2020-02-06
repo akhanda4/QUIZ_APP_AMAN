@@ -9,13 +9,6 @@ import $ from "jquery";
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    const data = [
-      {
-        cat_id: "p1",
-        label: "catname",
-        items: [{ subcat_id: "", cat_id: "", label: "subcat_1" }]
-      }
-    ];
     this.state = {
       rawData: "",
       source: ""
@@ -43,8 +36,18 @@ class App extends React.PureComponent {
       }
     });
   }
+  selectedItem = event => {
+    this.props.getId(event.args.element.id);
+  };
   render() {
-    return <JqxTree source={this.state.source} width={300} />;
+    return (
+      <JqxTree
+        onItemClick={this.selectedItem}
+        ref={"subtree"}
+        source={this.state.source}
+        width={300}
+      />
+    );
   }
 }
 export default App;
