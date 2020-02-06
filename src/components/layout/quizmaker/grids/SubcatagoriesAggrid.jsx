@@ -4,7 +4,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
-import Modal from "../../Modal/modal.jsx";
+import SubCatagoryModal from "../../Modal/subCatagoryModal.jsx";
 import $ from "jquery";
 import {
   MdCreate,
@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "CATAGORY", field: "catagory", width: 360 },
+        { headerName: "CATAGORY", field: "subcatagory", width: 360 },
         {
           headerName: "EDIT",
           field: "edit",
@@ -63,51 +63,55 @@ class App extends Component {
       rowData: null
     };
   }
-  componentDidMount() {
-
-  }
+  // componentDidMount() {}
   onGridReady = params => {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
-  addCatagory = params => {
-    this.refs.ModalRef.handleShow();
+  addSubCatagory = params => {
+    this.refs.SubCatagoryModalRef.handleShow();
   };
   deleteRow = () => {
     console.log("deleting row");
   };
-  editRow = () => {
-    console.log("editing row");
-  };
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(this.props.catagoryData);
+  // editRow = () => {
+  //   console.log("editing row");
+  // };
+
+  getSubcatagories = () => {
+    const obj = {};
+    obj.parentCatagoryId = this.props.catagoryData.id;
     $.ajax({
-      url: "http://localhost:8000/getcatagoriesforgrid",
-      type: "GET",
-      success: function (response) {
+      url: "http://localhost:8000/getsubcatagoriesforgrid",
+      type: "POST",
+      data: obj,
+      success: function(response) {
         if (response) {
-          const deletedIdResponse = response.filter(row => {
-            delete row._id;
-            return row;
-          });
-          console.log("as", deletedIdResponse);
           this.setState({
-            rowData: deletedIdResponse
+            rowData: response
           });
         } else {
           console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });
-
-  }
+  };
+  isAdded = value => {
+    if (value === true) {
+      this.getSubcatagories();
+    }
+  };
   render() {
     return (
       <Auxiliary>
-        {/* <Modal ref={"ModalRef"} isAdded={this.isAdded} /> */}
+        <SubCatagoryModal
+          ref={"SubCatagoryModalRef"} /*isAdded={this.isAdded} */
+          activeCatagory={this.props.catagoryData}
+          isAdded={this.isAdded}
+        />
         <div
           className="ag-theme-balham"
           style={{
@@ -121,7 +125,7 @@ class App extends Component {
                 <Button
                   variant="outline-light"
                   className="mr-sm-3"
-                  onClick={this.addCatagory}
+                  onClick={this.addSubCatagory}
                 >
                   Add
                 </Button>

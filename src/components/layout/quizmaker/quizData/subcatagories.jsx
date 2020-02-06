@@ -9,25 +9,31 @@ class Catagories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      catagoryData: ''
+      catagoryData: ""
     };
   }
-  getSelectedItem = (catagoryData) => {
+  getSelectedItem = catagoryData => {
     this.setState({
       catagoryData: catagoryData
-    })
-  }
+    });
+    this.refs.subAggrid.getSubcatagories();
+  };
   render() {
     return (
       <Auxiliary>
         <Adminnavbar authenticated={this.props.authenticated} />
         <Routerbar activekey={"/admin/catagories"} />
-
         <div className="Dcentered">
-          <SubcatagoriesTree ref="subtree" getSelectedItem={this.getSelectedItem} />
+          <SubcatagoriesTree
+            ref="subtree"
+            getSelectedItem={this.getSelectedItem}
+          />
         </div>
         <div className="Ccentered">
-          <SubcatagoriesAggrid catagoryData={this.state.catagoryData} />
+          <SubcatagoriesAggrid
+            ref={"subAggrid"}
+            catagoryData={this.state.catagoryData}
+          />
         </div>
       </Auxiliary>
     );
