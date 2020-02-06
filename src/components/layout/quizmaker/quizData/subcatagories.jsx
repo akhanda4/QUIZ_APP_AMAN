@@ -8,7 +8,14 @@ import "../../../../public/css/subcatagories.css";
 class Catagories extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      catagoryData: ''
+    };
+  }
+  getSelectedItem = (catagoryData) => {
+    this.setState({
+      catagoryData: catagoryData
+    })
   }
   render() {
     return (
@@ -17,10 +24,10 @@ class Catagories extends Component {
         <Routerbar activekey={"/admin/catagories"} />
 
         <div className="Dcentered">
-          <SubcatagoriesTree />
+          <SubcatagoriesTree ref="subtree" getSelectedItem={this.getSelectedItem} />
         </div>
         <div className="Ccentered">
-          <SubcatagoriesAggrid />
+          <SubcatagoriesAggrid catagoryData={this.state.catagoryData} />
         </div>
       </Auxiliary>
     );

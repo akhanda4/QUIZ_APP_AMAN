@@ -17,11 +17,10 @@ class App extends React.PureComponent {
     $.ajax({
       url: "http://localhost:8000/getcatagoriesfortree",
       type: "GET",
-      success: function(response) {
+      success: function (response) {
         if (response) {
           let str = JSON.parse(response);
           console.log(str);
-
           let data = [...this.state.source];
           data.push(str);
           this.setState({
@@ -31,13 +30,16 @@ class App extends React.PureComponent {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
   }
+  selectedItem = () => {
+    this.props.getSelectedItem(this.refs.subtree.getSelectedItem());
+  }
   render() {
-    return <JqxTree source={this.state.source} width={300} />;
+    return <JqxTree onSelect={this.selectedItem} ref={"subtree"} source={this.state.source} width={300} />;
   }
 }
 export default App;

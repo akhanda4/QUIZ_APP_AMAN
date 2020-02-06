@@ -64,27 +64,7 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    // $.ajax({
-    //   url: "http://localhost:8000/getcatagories",
-    //   type: "GET",
-    //   success: function(response) {
-    //     if (response) {
-    //       const deletedIdResponse = response.filter(row => {
-    //         delete row._id;
-    //         return row;
-    //       });
-    //       console.log("as", deletedIdResponse);
-    //       this.setState({
-    //         rowData: deletedIdResponse
-    //       });
-    //     } else {
-    //       console.log("no response");
-    //     }
-    //   }.bind(this),
-    //   error: function(response) {
-    //     console.log(response);
-    //   }
-    // });
+
   }
   onGridReady = params => {
     this.api = params.api;
@@ -93,16 +73,41 @@ class App extends Component {
   addCatagory = params => {
     this.refs.ModalRef.handleShow();
   };
-  //   deleteRow = () => {
-  //     console.log("deleting row");
-  //   };
-  //   editRow = () => {
-  //     console.log("editing row");
-  //   };
+  deleteRow = () => {
+    console.log("deleting row");
+  };
+  editRow = () => {
+    console.log("editing row");
+  };
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(this.props.catagoryData);
+    $.ajax({
+      url: "http://localhost:8000/getcatagoriesforgrid",
+      type: "GET",
+      success: function (response) {
+        if (response) {
+          const deletedIdResponse = response.filter(row => {
+            delete row._id;
+            return row;
+          });
+          console.log("as", deletedIdResponse);
+          this.setState({
+            rowData: deletedIdResponse
+          });
+        } else {
+          console.log("no response");
+        }
+      }.bind(this),
+      error: function (response) {
+        console.log(response);
+      }
+    });
+
+  }
   render() {
     return (
       <Auxiliary>
-        <Modal ref={"ModalRef"} isAdded={this.isAdded} />
+        {/* <Modal ref={"ModalRef"} isAdded={this.isAdded} /> */}
         <div
           className="ag-theme-balham"
           style={{
