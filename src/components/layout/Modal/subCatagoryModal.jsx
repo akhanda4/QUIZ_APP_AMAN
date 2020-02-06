@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
-import "../../../public/css/Modal.css";
+import "../../../public/css/subcatagoryModal.css";
 import $ from "jquery";
 class modal extends Component {
   constructor(props) {
@@ -35,6 +35,17 @@ class modal extends Component {
       data: data,
       success: function(response) {
         if (response) {
+          console.log(response);
+          if (response !== "1") {
+            try {
+              let err = JSON.parse(response);
+              alert(err.error);
+              this.handleClose();
+              return;
+            } catch (error) {
+              console.log(error);
+            }
+          }
           this.props.isAdded(true);
           this.handleClose();
         } else {

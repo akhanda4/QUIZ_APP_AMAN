@@ -11,37 +11,29 @@ class App extends React.PureComponent {
     super(props);
     const data = [
       {
-        id: "p1",
-        label: "aman",
-        items: [{ label: "das" }]
-      },
-      {
-        id: "c1"
-      },
-      {
-        id: "c2"
+        cat_id: "p1",
+        label: "catname",
+        items: [{ subcat_id: "", cat_id: "", label: "subcat_1" }]
       }
     ];
-    // const source = {
-    //   datafields: [{ name: "id" }, { name: "text" }],
-    //   datatype: "json",
-    //   id: "id",
-    //   localdata: data
-    // };
-    // const dataAdapter = new jqx.dataAdapter(source, { autoBind: true });
-    // const records = dataAdapter.getRecordsHierarchy("id", "parentid", "items", [
-    //   { name: "text", map: "label" }
-    // ]);
     this.state = {
-      source: data
+      rawData: "",
+      source: ""
     };
   }
+  getCatagoryName = obj => {
+    console.log(obj.cat_id);
+  };
   componentDidMount() {
     $.ajax({
-      url: "http://localhost:8000/getcatagories",
+      url: "http://localhost:8000/getcatagoriesandsubcatagories",
       type: "GET",
       success: function(response) {
         if (response) {
+          const res = JSON.parse(response);
+          this.setState({
+            source: res
+          });
         } else {
           console.log("no response");
         }

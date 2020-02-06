@@ -56,7 +56,7 @@ class modal extends Component {
               Cancel
             </Button>
             <Button variant="primary" onClick={this.AddAndClose}>
-              Add
+              Add Catagory
             </Button>
           </Modal.Footer>
         </Modal>

@@ -71,8 +71,8 @@ class App extends Component {
   addSubCatagory = params => {
     this.refs.SubCatagoryModalRef.handleShow();
   };
-  deleteRow = () => {
-    console.log("deleting row");
+  deleteRow = event => {
+    console.log(this.state.rowData[event.currentTarget.id]);
   };
   // editRow = () => {
   //   console.log("editing row");
@@ -116,7 +116,7 @@ class App extends Component {
           className="ag-theme-balham"
           style={{
             height: "300px",
-            width: "500px"
+            width: "600px"
           }}
         >
           <div className="ag-grid-div">
@@ -127,7 +127,7 @@ class App extends Component {
                   className="mr-sm-3"
                   onClick={this.addSubCatagory}
                 >
-                  Add
+                  Add SubCatagory
                 </Button>
                 <FormControl
                   type="text"
@@ -139,6 +139,7 @@ class App extends Component {
             </Navbar>
           </div>
           <AgGridReact
+            onCellValueChanged={this.cellEdit}
             onGridReady={this.onGridReady}
             columnDefs={this.state.columnDefs}
             rowData={this.state.rowData}
