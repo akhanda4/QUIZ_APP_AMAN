@@ -56,7 +56,8 @@ class App extends Component {
           }
         }
       ],
-      rowData: null
+      rowData: null,
+      deleted: false
     };
   }
   componentDidMount() {
@@ -104,34 +105,53 @@ class App extends Component {
       });
     }
   };
-
+  refreshGrid = () => {
+    $.ajax({
+      url: "http://localhost:8000/getcatagories",
+      type: "GET",
+      success: function(response) {
+        if (response) {
+          this.setState({
+            rowData: response
+          });
+        } else {
+          console.log("no response");
+        }
+      }.bind(this),
+      error: function(response) {
+        console.log(response);
+      }
+    });
+  };
   deleteRow = event => {
     let rowdata = this.state.rowData[event.currentTarget.id];
     this.refs.deleteModalRef.handleShow(rowdata);
+    this.refreshGrid();
   };
-  // editRow = event => {
-  //   let rowdata = this.state.rowData[event.currentTarget.id];
-  //   $.ajax({
-  //     url: "http://localhost:8000/editcatagory",
-  //     type: "POST",
-  //     data: rowdata,
-  //     success: function(response) {
-  //       if (response) {
-  //         console.log(response);
-  //       } else {
-  //         console.log("no response");
-  //       }
-  //     }.bind(this),
-  //     error: function(response) {
-  //       console.log(response);
-  //     }
-  //   });
-  // };
+  editRow = event => {
+    return;
+    let rowdata = this.state.rowData[event.currentTarget.id];
+    $.ajax({
+      url: "http://localhost:8000/editcatagory",
+      type: "POST",
+      data: rowdata,
+      success: function(response) {
+        if (response) {
+          console.log(response);
+        } else {
+          console.log("no response");
+        }
+      }.bind(this),
+      error: function(response) {
+        console.log(response);
+      }
+    });
+  };
   render() {
     return (
       <Auxiliary>
         <Modal ref={"ModalRef"} isAdded={this.isAdded} />
-        <DeleteModal ref={"deleteModalRef"} />
+        <DeleteModal ref={"deleteModalRef"} refreshGrid={this.refreshGrid} />
         <div
           className="ag-theme-balham"
           style={{

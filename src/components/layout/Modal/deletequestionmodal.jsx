@@ -25,16 +25,13 @@ class deletecatagorymodal extends Component {
       this.rowData = rowdata;
     }
   };
-  deleteCatagoryAndClose = () => {
+  deleteSubCatagoryAndClose = () => {
     $.ajax({
-      url: "http://localhost:8000/deletecatagory",
+      url: "http://localhost:8000/deletesubcatagory",
       type: "POST",
       data: this.rowData,
       success: function(response) {
         if (response) {
-          if (response[0][0] == 1) {
-            console.log("Catagory deleted");
-          }
           if (response[1][0] == 1) {
             console.log("subCatagory deleted");
           }
@@ -51,25 +48,25 @@ class deletecatagorymodal extends Component {
         console.log(response);
       }
     });
-    this.props.refreshGrid();
+    // this.props.refreshGrid();
   };
   render() {
     return (
       <Auxiliary>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Delete Catagory</Modal.Title>
+            <Modal.Title>Delete SubCatagory</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Modal.Title>
-              Are you sure you want to Delete this Catagory
+              Are you sure you want to Delete this SubCatagory
             </Modal.Title>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={this.deleteCatagoryAndClose}>
+            <Button variant="primary" onClick={this.deleteSubCatagoryAndClose}>
               Delete
             </Button>
           </Modal.Footer>

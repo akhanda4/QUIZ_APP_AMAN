@@ -61,7 +61,7 @@ class QuestionsAggrid extends Component {
           }
         }
       ],
-      rowData: null
+      rowData: []
     };
   }
   addQuestion = () => {

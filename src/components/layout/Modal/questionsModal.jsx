@@ -20,7 +20,7 @@ class questionsModal extends Component {
       show: true
     });
   };
-  //pci = parentCatagoryId
+  // pci = parentCatagoryId;
   AddAndClose = () => {
     let id = this.props.id; //subcat with cat
     let question = document.getElementById("question").value;

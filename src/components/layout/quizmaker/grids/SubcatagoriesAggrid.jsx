@@ -5,6 +5,7 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
 import SubCatagoryModal from "../../Modal/subCatagoryModal.jsx";
+import DeleteSubCatagoryModal from "../../Modal/deletesubcatagorymodal.jsx";
 import $ from "jquery";
 import {
   MdCreate,
@@ -60,7 +61,7 @@ class App extends Component {
           }
         }
       ],
-      rowData: null
+      rowData: []
     };
   }
   // componentDidMount() {}
@@ -72,7 +73,8 @@ class App extends Component {
     this.refs.SubCatagoryModalRef.handleShow();
   };
   deleteRow = event => {
-    console.log(this.state.rowData[event.currentTarget.id]);
+    let rowdata = this.state.rowData[event.currentTarget.id];
+    this.refs.deleteModalRef.handleShow(rowdata);
   };
   // editRow = () => {
   //   console.log("editing row");
@@ -125,6 +127,7 @@ class App extends Component {
     );
     return (
       <Auxiliary>
+        <DeleteSubCatagoryModal ref={"deleteModalRef"} />
         <SubCatagoryModal
           ref={"SubCatagoryModalRef"} /*isAdded={this.isAdded} */
           activeCatagory={this.props.catagoryData}
