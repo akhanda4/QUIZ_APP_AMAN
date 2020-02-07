@@ -5,7 +5,7 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 import QuestionsModal from "../../Modal/questionsModal.jsx";
 
-import { Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/QuestionsAggrid.css";
 import $ from "jquery";
 import {
@@ -128,6 +128,17 @@ class QuestionsAggrid extends Component {
             columnDefs={this.state.columnDefs}
             rowData={this.state.rowData}
           ></AgGridReact>
+          <div className="pages">
+            <Pagination>
+              <Pagination.Prev />
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Item>{2}</Pagination.Item>
+              <Pagination.Item>{3}</Pagination.Item>
+              <Pagination.Item active>{4}</Pagination.Item>
+              <Pagination.Item>{5}</Pagination.Item>
+              <Pagination.Next />
+            </Pagination>
+          </div>
         </div>
       </Auxiliary>
     );

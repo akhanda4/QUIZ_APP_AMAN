@@ -2,16 +2,11 @@ import React, { Component } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
 import Modal from "../../Modal/modal.jsx";
 import $ from "jquery";
-import {
-  MdCreate,
-  MdNavigateNext,
-  MdNavigateBefore,
-  MdDeleteForever
-} from "react-icons/md";
+import { MdCreate, MdDeleteForever } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 class App extends Component {
   constructor(props) {
@@ -157,6 +152,17 @@ class App extends Component {
             rowData={this.state.rowData}
             onCellValueChanged={this.cellEdit}
           ></AgGridReact>
+          <div className="pages">
+            <Pagination>
+              <Pagination.Prev />
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Item>{2}</Pagination.Item>
+              <Pagination.Item>{3}</Pagination.Item>
+              <Pagination.Item active>{4}</Pagination.Item>
+              <Pagination.Item>{5}</Pagination.Item>
+              <Pagination.Next />
+            </Pagination>
+          </div>
         </div>
       </Auxiliary>
     );
