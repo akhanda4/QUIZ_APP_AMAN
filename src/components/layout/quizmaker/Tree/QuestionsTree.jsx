@@ -6,7 +6,7 @@ import JqxTree, {
   jqx
 } from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
 import $ from "jquery";
-class App extends React.PureComponent {
+class QuestionsTree extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,4 +50,4 @@ class App extends React.PureComponent {
     ) : null;
   }
 }
-export default App;
+export default QuestionsTree;

@@ -8,7 +8,7 @@ import Quizmaker from "./components/layout/quizmaker/quizmaker.jsx";
 import Questions from "./components/layout/quizmaker/quizData/questions.jsx";
 import Catagories from "./components/layout/quizmaker/quizData/catagories.jsx";
 import Subcatagories from "./components/layout/quizmaker/quizData/subcatagories.jsx";
-
+import PlayQuiz from "./components/play/homepage.jsx";
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -35,6 +35,7 @@ export default class App extends PureComponent {
     return (
       <BrowserRouter>
         <Auxillary>
+          <Route path="/playquiz" exact component={PlayQuiz} />
           <Route
             path="/login"
             exact
@@ -45,8 +46,6 @@ export default class App extends PureComponent {
               />
             )}
           />
-          <Route path="/playquiz" exact render={() => <PlayQuiz />} />
-
           <Route
             path="/admin/catagories"
             exact
@@ -63,7 +62,12 @@ export default class App extends PureComponent {
             exact
             render={() => <Questions authenticated={this.authenticated} />}
           />
-          {this.state.isAuthenticated ? (
+          <Route
+            path="/admin"
+            exact
+            render={() => <Quizmaker authenticated={this.authenticated} />}
+          />
+          {/* {this.state.isAuthenticated ? (
             <Route
               path="/admin"
               exact
@@ -71,7 +75,8 @@ export default class App extends PureComponent {
             />
           ) : (
             <Redirect to="/login" />
-          )}
+          )} */}
+          {/* play quiz wasn't working so commented above page */}
         </Auxillary>
       </BrowserRouter>
     );
