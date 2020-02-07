@@ -106,6 +106,11 @@ class App extends Component {
       this.getSubcatagories();
     }
   };
+  isDeleted = value => {
+    if (value === true) {
+      this.getSubcatagories();
+    }
+  };
   render() {
     let btn = this.props.addBtnEnable ? (
       <Button
@@ -127,7 +132,10 @@ class App extends Component {
     );
     return (
       <Auxiliary>
-        <DeleteSubCatagoryModal ref={"deleteModalRef"} />
+        <DeleteSubCatagoryModal
+          isDeleted={this.isDeleted}
+          ref={"deleteModalRef"}
+        />
         <SubCatagoryModal
           ref={"SubCatagoryModalRef"} /*isAdded={this.isAdded} */
           activeCatagory={this.props.catagoryData}

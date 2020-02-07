@@ -4,6 +4,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 import QuestionsModal from "../../Modal/questionsModal.jsx";
+import DeleteQuestionModal from "../../Modal/deletequestionmodal.jsx";
 
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/QuestionsAggrid.css";
@@ -68,13 +69,19 @@ class QuestionsAggrid extends Component {
     this.refs.QuestionsModalRef.handleShow();
   };
   isAdded = value => {
-    console.log(value);
+    if (value === true) {
+      this.props.isAdded();
+    }
   };
   fillQuestionsState(questionsList) {
     this.setState({
       rowData: questionsList
     });
   }
+  deleteRow = event => {
+    let rowdata = this.state.rowData[event.currentTarget.id];
+    this.refs.deleteQuestionModalRef.handleShow(rowdata);
+  };
   render() {
     const btn = this.props.addBtnEnable ? (
       <Button
@@ -96,6 +103,10 @@ class QuestionsAggrid extends Component {
     );
     return (
       <Auxiliary>
+        <DeleteQuestionModal
+          ref="deleteQuestionModalRef"
+          isDeleted={this.props.isDeleted}
+        />
         <QuestionsModal
           id={this.props.id}
           ref={"QuestionsModalRef"} /*isAdded={this.isAdded} */

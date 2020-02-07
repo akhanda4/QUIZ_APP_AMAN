@@ -40,6 +40,7 @@ class deletesubcatagorymodal extends Component {
           //   if (response[2][0] == 1) {
           //     console.log("questions deleted");
           //   }
+          this.props.isDeleted(true);
           this.handleClose();
           //trigger notifications TODO:
         } else {
@@ -50,7 +51,6 @@ class deletesubcatagorymodal extends Component {
         console.log(response);
       }
     });
-    // this.props.refreshGrid();
   };
   render() {
     return (

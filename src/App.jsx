@@ -45,6 +45,8 @@ export default class App extends PureComponent {
               />
             )}
           />
+          <Route path="/playquiz" exact render={() => <PlayQuiz />} />
+
           <Route
             path="/admin/catagories"
             exact

@@ -65,6 +65,12 @@ class Questions extends Component {
       });
     }
   };
+  isAdded = () => {
+    this.getId(this.state.id);
+  };
+  isDeleted = () => {
+    this.getId(this.state.id);
+  };
   render() {
     return (
       <Auxiliary>
@@ -82,6 +88,8 @@ class Questions extends Component {
           <QuestionsAggrid
             id={this.state.id}
             ref={"quesgrid"}
+            isAdded={this.isAdded}
+            isDeleted={this.isDeleted}
             addBtnEnable={this.state.addBtnEnable}
             // catagoryData={this.state.catagoryData}
           />

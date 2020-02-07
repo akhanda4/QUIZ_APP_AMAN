@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
 import Auxiliary from "../../auxillary/Auxillary.jsx";
 import "../../../public/css/homenavbar.css";
+import { Link } from "react-router-dom";
 const homenavbar = props => {
   return (
     <Auxiliary>
@@ -12,7 +13,7 @@ const homenavbar = props => {
           <Nav className="mr-auto"></Nav>
           <Nav>
             <Button size="lg" variant="outline-light" href="/quiz">
-              Play Quiz
+              {/* <Link to="/playquiz">Play Quiz</Link> */}
             </Button>
           </Nav>
         </Navbar.Collapse>
