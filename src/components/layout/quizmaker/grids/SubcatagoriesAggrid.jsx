@@ -105,6 +105,24 @@ class App extends Component {
     }
   };
   render() {
+    let btn = this.props.addBtnEnable ? (
+      <Button
+        variant="outline-light"
+        className="mr-sm-3"
+        onClick={this.addSubCatagory}
+      >
+        Add SubCatagory
+      </Button>
+    ) : (
+      <Button
+        variant="outline-light"
+        className="mr-sm-3"
+        onClick={this.addSubCatagory}
+        disabled
+      >
+        Add SubCatagory
+      </Button>
+    );
     return (
       <Auxiliary>
         <SubCatagoryModal
@@ -122,13 +140,7 @@ class App extends Component {
           <div className="ag-grid-div">
             <Navbar bg="primary" variant="dark">
               <Form inline>
-                <Button
-                  variant="outline-light"
-                  className="mr-sm-3"
-                  onClick={this.addSubCatagory}
-                >
-                  Add SubCatagory
-                </Button>
+                {btn}
                 <FormControl
                   type="text"
                   placeholder="Search"

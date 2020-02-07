@@ -40,14 +40,14 @@ class App extends React.PureComponent {
     this.props.getId(event.args.element.id);
   };
   render() {
-    return (
+    return this.state.source.length ? (
       <JqxTree
         onItemClick={this.selectedItem}
         ref={"subtree"}
         source={this.state.source}
         width={300}
       />
-    );
+    ) : null;
   }
 }
 export default App;

@@ -9,14 +9,23 @@ class Catagories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      catagoryData: ""
+      catagoryData: "",
+      addBtnEnable: false
     };
   }
-  getSelectedItem = catagoryData => {
-    this.setState({
-      catagoryData: catagoryData
-    });
-    this.refs.subAggrid.getSubcatagories();
+  getSelectedItem = (catagoryData, id) => {
+    if (id) {
+      this.setState({
+        catagoryData: catagoryData,
+        addBtnEnable: true
+      });
+      this.refs.subAggrid.getSubcatagories();
+    } else {
+      this.setState({
+        catagoryData: catagoryData,
+        addBtnEnable: false
+      });
+    }
   };
   render() {
     return (
@@ -32,6 +41,7 @@ class Catagories extends Component {
         <div className="Ccentered">
           <SubcatagoriesAggrid
             ref={"subAggrid"}
+            addBtnEnable={this.state.addBtnEnable}
             catagoryData={this.state.catagoryData}
           />
         </div>

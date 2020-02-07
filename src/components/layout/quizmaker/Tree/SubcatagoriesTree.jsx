@@ -17,7 +17,7 @@ class App extends React.PureComponent {
     $.ajax({
       url: "http://localhost:8000/getcatagoriesfortree",
       type: "GET",
-      success: function (response) {
+      success: function(response) {
         if (response) {
           let str = JSON.parse(response);
           console.log(str);
@@ -30,16 +30,24 @@ class App extends React.PureComponent {
           console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });
   }
-  selectedItem = () => {
-    this.props.getSelectedItem(this.refs.subtree.getSelectedItem());
-  }
+  selectedItem = event => {
+    let id = event.args.element.id;
+    this.props.getSelectedItem(this.refs.subtree.getSelectedItem(), id);
+  };
   render() {
-    return <JqxTree onSelect={this.selectedItem} ref={"subtree"} source={this.state.source} width={300} />;
+    return this.state.source.length ? (
+      <JqxTree
+        onItemClick={this.selectedItem}
+        ref={"subtree"}
+        source={this.state.source}
+        width={300}
+      />
+    ) : null;
   }
 }
 export default App;
