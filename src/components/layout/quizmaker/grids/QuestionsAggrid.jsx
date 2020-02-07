@@ -65,12 +65,31 @@ class QuestionsAggrid extends Component {
     };
   }
   addQuestion = () => {
-    console.log(this.refs.QuestionsModalRef);
+    this.refs.QuestionsModalRef.handleShow();
   };
   render() {
+    const btn = this.props.addBtnEnable ? (
+      <Button
+        variant="outline-light"
+        className="mr-sm-3"
+        onClick={this.addQuestion}
+      >
+        Add Question
+      </Button>
+    ) : (
+      <Button
+        variant="outline-light"
+        className="mr-sm-3"
+        onClick={this.addQuestion}
+        disabled
+      >
+        Add Question
+      </Button>
+    );
     return (
       <Auxiliary>
         <QuestionsModal
+          id={this.props.id}
           ref={"QuestionsModalRef"} /*isAdded={this.isAdded} */
           activeCatagory={this.props.catagoryData}
           isAdded={this.isAdded}
@@ -85,13 +104,7 @@ class QuestionsAggrid extends Component {
           <div className="ag-grid-div">
             <Navbar bg="primary" variant="dark">
               <Form inline>
-                <Button
-                  variant="outline-light"
-                  className="mr-sm-3"
-                  onClick={this.addQuestion}
-                >
-                  Add Question
-                </Button>
+                {btn}
                 <FormControl
                   type="text"
                   placeholder="Search"

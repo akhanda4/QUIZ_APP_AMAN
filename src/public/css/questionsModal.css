@@ -1,0 +1,39 @@
+.modal-body{
+    width: 93%;
+    margin: auto;
+}
+.modal-body input{
+    padding: 1rem;
+}
+.mb-3 > input{
+    margin-top: 2vh;
+    width: 50%!important;
+}
+#correct{
+    background-color: rgb(112, 255, 112);
+}
+#wrong1{
+    background-color: rgb(255, 104, 104);
+    color: white!important;
+}
+
+#wrong2{
+    background-color: rgb(255, 104, 104);    
+}
+#wrong3{
+    background-color: rgb(255, 104, 104);
+        
+}
+
+::placeholder {
+    color: rgb(107, 103, 103);
+    opacity: 1; /* Firefox */
+}
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: lightblue;
+}
+  
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: lightblue;
+}

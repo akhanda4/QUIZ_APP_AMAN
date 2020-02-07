@@ -22,13 +22,13 @@ class questionsModal extends Component {
   };
   //pci = parentCatagoryId
   AddAndClose = () => {
-    let id = ""; //subcat with cat
+    let id = this.props.id; //subcat with cat
     let question = document.getElementById("question").value;
-    let answer = document.getElementById("answer").value;
-    let option1 = document.getElementById("option1").value;
-    let option2 = document.getElementById("option2").value;
-    let option3 = document.getElementById("option3").value;
-    let options = [option1, option2, option3, answer];
+    let correct = document.getElementById("correct").value;
+    let wrong1 = document.getElementById("wrong1").value;
+    let wrong2 = document.getElementById("wrong2").value;
+    let wrong3 = document.getElementById("wrong3").value;
+    let options = [wrong1, wrong2, wrong3, correct];
 
     //store it in object
     let data = {};
@@ -36,7 +36,7 @@ class questionsModal extends Component {
     data.question = question;
     data.options = options;
     console.log(data);
-    return;
+
     $.ajax({
       url: "http://localhost:8000/addquestion",
       type: "POST",
@@ -73,12 +73,12 @@ class questionsModal extends Component {
             <Modal.Title>Add Question</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <input type="text" id="question" placeholder="Question" />
             <InputGroup className="mb-3">
-              <input
-                type="text"
-                id="subcatagory"
-                placeholder="Sub Catagory Name"
-              />
+              <input type="text" id="correct" placeholder="Correct option" />
+              <input type="text" id="wrong1" placeholder="Wrong Option" />
+              <input type="text" id="wrong2" placeholder="Wrong Option" />
+              <input type="text" id="wrong3" placeholder="Wrong Option" />
             </InputGroup>
           </Modal.Body>
           <Modal.Footer>

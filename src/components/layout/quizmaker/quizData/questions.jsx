@@ -10,7 +10,8 @@ class Questions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      catagoryData: ""
+      id: "",
+      addBtnEnable: false
     };
   }
   // getSelectedCatagory = catagoryData => {
@@ -27,8 +28,10 @@ class Questions extends Component {
   // };
   getId = id => {
     if (id.includes("-")) {
-      console.log(id);
-      return;
+      this.setState({
+        id: id,
+        addBtnEnable: true
+      });
       $.ajax({
         url: "http://localhost:8000/getquestions",
         type: "POST",
@@ -53,7 +56,9 @@ class Questions extends Component {
         }
       });
     } else {
-      console.log("wrong_id");
+      this.setState({
+        addBtnEnable: false
+      });
     }
   };
   render() {
@@ -71,7 +76,9 @@ class Questions extends Component {
         </div>
         <div className="Ccentered">
           <QuestionsAggrid
+            id={this.state.id}
             ref={"quesgrid"}
+            addBtnEnable={this.state.addBtnEnable}
             // catagoryData={this.state.catagoryData}
           />
         </div>
