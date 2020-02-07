@@ -50,8 +50,17 @@ export default class App extends PureComponent {
             exact
             render={() => <Catagories authenticated={this.authenticated} />}
           />
-          <Route path="/admin/subcatagories" exact component={Subcatagories} />
-          <Route path="/admin/questions" exact component={Questions} />
+          <Route
+            path="/admin/subcatagories"
+            exact
+            render={() => <Subcatagories authenticated={this.authenticated} />}
+          />
+
+          <Route
+            path="/admin/questions"
+            exact
+            render={() => <Questions authenticated={this.authenticated} />}
+          />
           {this.state.isAuthenticated ? (
             <Route
               path="/admin"

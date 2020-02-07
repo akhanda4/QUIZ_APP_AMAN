@@ -19,7 +19,7 @@ class QuestionsAggrid extends Component {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "QUESTIONS", field: "questions", width: 360 },
+        { headerName: "QUESTIONS", field: "question", width: 360 },
         {
           headerName: "EDIT",
           field: "edit",
@@ -67,6 +67,14 @@ class QuestionsAggrid extends Component {
   addQuestion = () => {
     this.refs.QuestionsModalRef.handleShow();
   };
+  isAdded = value => {
+    console.log(value);
+  };
+  fillQuestionsState(questionsList) {
+    this.setState({
+      rowData: questionsList
+    });
+  }
   render() {
     const btn = this.props.addBtnEnable ? (
       <Button

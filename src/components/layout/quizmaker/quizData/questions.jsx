@@ -11,7 +11,8 @@ class Questions extends Component {
     super(props);
     this.state = {
       id: "",
-      addBtnEnable: false
+      addBtnEnable: false,
+      questionsList: ""
     };
   }
   // getSelectedCatagory = catagoryData => {
@@ -32,21 +33,24 @@ class Questions extends Component {
         id: id,
         addBtnEnable: true
       });
+      let data = {
+        id: id
+      };
       $.ajax({
         url: "http://localhost:8000/getquestions",
-        type: "POST",
-        data: { id },
+        type: "GET",
+        data: data,
         success: function(response) {
           if (response) {
-            const deletedIdResponse = response.filter(row => {
-              delete row._id;
-              return row;
-            });
-            console.log("as", deletedIdResponse);
-
-            this.setState({
-              rowData: deletedIdResponse
-            });
+            this.setState(
+              {
+                questionsList: response
+              },
+              () => {
+                console.log("questions fetched");
+              }
+            );
+            this.refs.quesgrid.fillQuestionsState(this.state.questionsList);
           } else {
             console.log("no response");
           }
@@ -64,7 +68,7 @@ class Questions extends Component {
   render() {
     return (
       <Auxiliary>
-        <Adminnavbar /*authenticated={this.props.authenticated}*/ />
+        <Adminnavbar authenticated={this.props.authenticated} />
         <Routerbar activekey={"/admin/catagories"} />
         <div className="Dcentered">
           <QuestionsTree
