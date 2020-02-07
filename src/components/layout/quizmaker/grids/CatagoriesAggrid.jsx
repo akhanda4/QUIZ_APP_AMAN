@@ -5,6 +5,7 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
 import Modal from "../../Modal/modal.jsx";
+import DeleteModal from "../../Modal/deletecatagorymodal.jsx";
 import $ from "jquery";
 import { MdCreate, MdDeleteForever } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
@@ -64,14 +65,8 @@ class App extends Component {
       type: "GET",
       success: function(response) {
         if (response) {
-          const deletedIdResponse = response.filter(row => {
-            delete row._id;
-            return row;
-          });
-          console.log("as", deletedIdResponse);
-
           this.setState({
-            rowData: deletedIdResponse
+            rowData: response
           });
         } else {
           console.log("no response");
@@ -111,15 +106,32 @@ class App extends Component {
   };
 
   deleteRow = event => {
-    console.log(this.state.rowData[event.currentTarget.id]);
+    let rowdata = this.state.rowData[event.currentTarget.id];
+    this.refs.deleteModalRef.handleShow(rowdata);
   };
-  editRow = () => {
-    console.log("editing row");
-  };
+  // editRow = event => {
+  //   let rowdata = this.state.rowData[event.currentTarget.id];
+  //   $.ajax({
+  //     url: "http://localhost:8000/editcatagory",
+  //     type: "POST",
+  //     data: rowdata,
+  //     success: function(response) {
+  //       if (response) {
+  //         console.log(response);
+  //       } else {
+  //         console.log("no response");
+  //       }
+  //     }.bind(this),
+  //     error: function(response) {
+  //       console.log(response);
+  //     }
+  //   });
+  // };
   render() {
     return (
       <Auxiliary>
         <Modal ref={"ModalRef"} isAdded={this.isAdded} />
+        <DeleteModal ref={"deleteModalRef"} />
         <div
           className="ag-theme-balham"
           style={{
