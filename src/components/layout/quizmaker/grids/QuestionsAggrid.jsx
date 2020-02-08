@@ -92,12 +92,7 @@ class QuestionsAggrid extends Component {
         Add Question
       </Button>
     ) : (
-      <Button
-        variant="outline-light"
-        className="mr-sm-3"
-        onClick={this.addQuestion}
-        disabled
-      >
+      <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
         Add Question
       </Button>
     );

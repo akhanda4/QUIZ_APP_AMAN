@@ -30,6 +30,7 @@ class Catagories extends Component {
   render() {
     return (
       <Auxiliary>
+        <div className="bg"></div>
         <Adminnavbar authenticated={this.props.authenticated} />
         <Routerbar activekey={"/admin/catagories"} />
         <div className="Dcentered">

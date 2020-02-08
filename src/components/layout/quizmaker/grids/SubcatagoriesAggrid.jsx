@@ -121,12 +121,7 @@ class App extends Component {
         Add SubCatagory
       </Button>
     ) : (
-      <Button
-        variant="outline-light"
-        className="mr-sm-3"
-        onClick={this.addSubCatagory}
-        disabled
-      >
+      <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
         Add SubCatagory
       </Button>
     );

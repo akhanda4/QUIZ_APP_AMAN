@@ -40,7 +40,7 @@ class Questions extends Component {
         url: "http://localhost:8000/getquestions",
         type: "GET",
         data: data,
-        success: function(response) {
+        success: function (response) {
           if (response) {
             this.setState(
               {
@@ -55,7 +55,7 @@ class Questions extends Component {
             console.log("no response");
           }
         }.bind(this),
-        error: function(response) {
+        error: function (response) {
           console.log(response);
         }
       });
@@ -74,14 +74,15 @@ class Questions extends Component {
   render() {
     return (
       <Auxiliary>
+        <div className="bg"></div>
         <Adminnavbar authenticated={this.props.authenticated} />
         <Routerbar activekey={"/admin/catagories"} />
         <div className="Dcentered">
           <QuestionsTree
             ref="questree"
             getId={this.getId}
-            // catagoryData={this.state.catagoryData}
-            // subCatagoryData={this.state.subCatagoryData}
+          // catagoryData={this.state.catagoryData}
+          // subCatagoryData={this.state.subCatagoryData}
           />
         </div>
         <div className="Ccentered">
@@ -91,7 +92,7 @@ class Questions extends Component {
             isAdded={this.isAdded}
             isDeleted={this.isDeleted}
             addBtnEnable={this.state.addBtnEnable}
-            // catagoryData={this.state.catagoryData}
+          // catagoryData={this.state.catagoryData}
           />
         </div>
       </Auxiliary>

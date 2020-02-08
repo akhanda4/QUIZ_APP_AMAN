@@ -8,13 +8,17 @@ import Quizmaker from "./components/layout/quizmaker/quizmaker.jsx";
 import Questions from "./components/layout/quizmaker/quizData/questions.jsx";
 import Catagories from "./components/layout/quizmaker/quizData/catagories.jsx";
 import Subcatagories from "./components/layout/quizmaker/quizData/subcatagories.jsx";
-import PlayQuiz from "./components/play/homepage.jsx";
+import Homepage from "./components/play/homepage.jsx";
+import Playquiz from "./components/play/playquizpage.jsx";
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      playId: "",
+      redirectToHomepage: false
     };
+    this.PlayQuizPage = React.createRef();
   }
   componentDidMount() {
     this.authenticated();
@@ -31,11 +35,33 @@ export default class App extends PureComponent {
       });
     }
   };
+  getId = id => {
+    this.setState({
+      playId: id
+    });
+  };
+  redirect = value => {
+    console.log("inapp redirect");
+    this.setState({
+      redirectToHomepage: true
+    });
+  };
   render() {
     return (
       <BrowserRouter>
         <Auxillary>
-          <Route path="/playquiz" exact component={PlayQuiz} />
+          <Route
+            path="/playquiz"
+            exact
+            render={() => (
+              <Playquiz playId={this.state.playId} redirect={this.redirect} />
+            )}
+          />
+          <Route
+            path="/homepage"
+            exact
+            render={() => <Homepage getId={this.getId} />}
+          />
           <Route
             path="/login"
             exact
@@ -77,6 +103,7 @@ export default class App extends PureComponent {
             <Redirect to="/login" />
           )} */}
           {/* play quiz wasn't working so commented above page */}
+          {this.state.redirectToHomepage ? <Redirect to="/homepage" /> : ""}
         </Auxillary>
       </BrowserRouter>
     );

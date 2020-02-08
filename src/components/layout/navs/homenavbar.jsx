@@ -15,7 +15,7 @@ const homenavbar = props => {
               size="lg"
               variant="outline-light"
               target="_blank"
-              href="/playquiz"
+              href="/homepage"
             >
               Play Quiz
             </Button>
