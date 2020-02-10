@@ -4,6 +4,9 @@
 .nav-item {
   padding: 5px;
 }
+.nav-item:hover{
+  cursor: pointer;
+}
 a:hover{
   text-decoration: none!important;
 }

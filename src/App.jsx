@@ -68,40 +68,29 @@ export default class App extends PureComponent {
             render={() => (
               <Login
                 authenticated={this.authenticated}
-              // isAuthenticated={this.state.isAuthenticated}
               />
             )}
           />
-          <Route
+          {/* <Route
             path="/admin/catagories"
-            render={() => <Catagories /*authenticated={this.authenticated}*/ />}
+            render={() => <Catagories />}
           />
           <Route
             path="/admin/subcatagories"
             exact
-            render={() => <Subcatagories /*authenticated={this.authenticated}*/ />}
+            render={() => <Subcatagories />}
           />
 
           <Route
             path="/admin/questions"
             exact
-            render={() => <Questions /*authenticated={this.authenticated}*/ />}
-          />
+            render={() => <Questions />}
+          /> */}
           <Route
             path="/admin"
             exact
-            render={() => <Quizmaker /*authenticated={this.authenticated}*/ />}
+            render={() => <Quizmaker />}
           />
-          {/* {this.state.isAuthenticated ? (
-            <Route
-              path="/admin"
-              exact
-              render={() => <Quizmaker authenticated={this.authenticated} />}
-            />
-          ) : (
-            <Redirect to="/login" />
-          )} */}
-          {/* play quiz wasn't working so commented above page */}
           {this.state.redirectToHomepage ? <Redirect to="/homepage" /> : ""}
         </Auxillary>
       </BrowserRouter>

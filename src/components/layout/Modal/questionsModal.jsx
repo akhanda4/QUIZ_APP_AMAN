@@ -3,6 +3,8 @@ import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/questionsModal.css";
 import $ from "jquery";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class questionsModal extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,14 @@ class questionsModal extends Component {
   AddAndClose = () => {
     let id = this.props.id; //subcat with cat
     let question = document.getElementById("question").value;
+    question = question.replace(/  +/g, " ");
+    let onlyDigitsCheck = question.replace(/\s/g, "");
+    if (!question) {
+      document.getElementById("error_message").innerHTML =
+        "Invalid Inputs";
+      this.refs.msgNotificationError.open();
+      return;
+    }
     let correct = document.getElementById("correct").value;
     let wrong1 = document.getElementById("wrong1").value;
     let wrong2 = document.getElementById("wrong2").value;
@@ -41,7 +51,7 @@ class questionsModal extends Component {
       url: "http://localhost:8000/addquestion",
       type: "POST",
       data: data,
-      success: function(response) {
+      success: function (response) {
         if (response) {
           console.log(response);
           if (response !== "1") {
@@ -56,11 +66,16 @@ class questionsModal extends Component {
           }
           this.props.isAdded(true);
           this.handleClose();
+          document.getElementById("success_message").innerHTML =
+            "Question Added Successfully";
+          this.refs.msgNotificationSuccess.open();
         } else {
-          console.log("no response");
+          document.getElementById("error_message").innerHTML =
+            "Please try again";
+          this.refs.msgNotificationError.open();
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -68,6 +83,32 @@ class questionsModal extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="error_message">Welcome to our website.</div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Question</Modal.Title>

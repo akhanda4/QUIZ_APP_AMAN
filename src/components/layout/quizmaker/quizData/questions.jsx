@@ -6,6 +6,8 @@ import QuestionsTree from "../Tree/QuestionsTree.jsx";
 import QuestionsAggrid from "../grids/QuestionsAggrid.jsx";
 import "../../../../public/css/subcatagories.css";
 import $ from "jquery";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class Questions extends Component {
   constructor(props) {
     super(props);
@@ -47,12 +49,16 @@ class Questions extends Component {
                 questionsList: response
               },
               () => {
-                console.log("questions fetched");
+                document.getElementById("sucess_message").innerHTML =
+                  "Questions Loaded";
+                this.refs.msgNotificationSuccess.open();
               }
             );
             this.refs.quesgrid.fillQuestionsState(this.state.questionsList);
           } else {
-            console.log("no response");
+            document.getElementById("error_message").innerHTML =
+              "Something went wrong";
+            this.refs.msgNotificationError.open();
           }
         }.bind(this),
         error: function (response) {
@@ -74,9 +80,33 @@ class Questions extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="error_message">Welcome to our website.</div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <div className="bg"></div>
-        <Adminnavbar authenticated={this.props.authenticated} />
-        <Routerbar quesActive={"quesActive"} />
         <div className="Dcentered">
           <QuestionsTree
             ref="questree"

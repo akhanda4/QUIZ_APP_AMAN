@@ -5,7 +5,9 @@ import Routerbar from "../../navs/routerbar.jsx";
 import SubcatagoriesTree from "../Tree/SubcatagoriesTree.jsx";
 import SubcatagoriesAggrid from "../grids/SubcatagoriesAggrid.jsx";
 import "../../../../public/css/subcatagories.css";
-class Catagories extends Component {
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
+class SubCatagories extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,9 +32,33 @@ class Catagories extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotification"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="error_message">Welcome to our website.</div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <div className="bg"></div>
-        <Adminnavbar authenticated={this.props.authenticated} />
-        <Routerbar subCatActive={"subCatActive"} />
         <div className="Dcentered">
           <SubcatagoriesTree
             ref="subtree"
@@ -51,4 +77,4 @@ class Catagories extends Component {
   }
 }
 
-export default Catagories;
+export default SubCatagories;
