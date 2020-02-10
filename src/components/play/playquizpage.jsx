@@ -3,6 +3,7 @@ import Auxiliary from "../auxillary/Auxillary.jsx";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import ScoreModal from "../layout/Modal/scoreModal.jsx";
 import $ from "jquery";
 import "../../public/css/play.css";
 class playquiz extends Component {
@@ -25,7 +26,7 @@ class playquiz extends Component {
         url: "http://localhost:8000/getquestions",
         type: "GET",
         data: data,
-        success: function(response) {
+        success: function (response) {
           if (response) {
             console.log(response);
             this.setState(
@@ -40,7 +41,7 @@ class playquiz extends Component {
             console.log("no response");
           }
         }.bind(this),
-        error: function(response) {
+        error: function (response) {
           console.log(response);
         }
       });
@@ -63,25 +64,53 @@ class playquiz extends Component {
     });
 
     if (answerdata[0].correct === answer) {
+      console.log("yaahooo correct answer");
       let oldScore = this.state.score;
       let newScore = oldScore + 1;
-      this.setState({
-        score: newScore
-      });
+      this.setState(
+        {
+          score: newScore
+        },
+        () => {
+          if (
+            this.state.score >= this.state.questionsList.length ||
+            this.state.questionNo >= this.state.questionsList.length - 1
+          ) {
+            this.refs.scoreModal.handleShow(this.state.score);
+            return;
+          }
+        }
+      );
+    } else {
+      this.setState(
+        {
+          score: this.state.score
+        },
+        () => {
+          if (
+            this.state.score >= this.state.questionsList.length ||
+            this.state.questionNo >= this.state.questionsList.length
+          ) {
+            this.refs.scoreModal.handleShow(this.state.score);
+            return;
+          }
+        }
+      );
     }
+
     this.setState({
       questionNo: this.state.questionNo + 1
     });
   };
-  setQuestion = (index = 0) => {
+  setQuestion = index => {
     console.log("setting question");
     let question = document.getElementById("question");
-    question.innerText = this.state.questionsList[index].question;
+    question.innerHTML = this.state.questionsList[index].question;
     let hiddenId = document.getElementById("hiddenId");
     let stringifyQuestionId = JSON.stringify(
       this.state.questionsList[index]._id
     );
-    hiddenId.innerText = JSON.parse(stringifyQuestionId).$oid;
+    hiddenId.innerHTML = JSON.parse(stringifyQuestionId).$oid;
 
     let options = this.state.questionsList[index].options;
     options.push(this.state.questionsList[index].correct);
@@ -91,20 +120,34 @@ class playquiz extends Component {
       options[i] = options[j];
       options[j] = temp;
     }
+    options = [...new Set(options)];
     console.log("shuffled", options);
 
-    document.getElementById("opt1").innerText = this.state.questionsList[
+    document.getElementById("opt1").innerHTML = this.state.questionsList[
       index
     ].options[0];
-    document.getElementById("opt2").innerText = this.state.questionsList[
+    document.getElementById("opt2").innerHTML = this.state.questionsList[
       index
     ].options[1];
-    document.getElementById("opt3").innerText = this.state.questionsList[
+    document.getElementById("opt3").innerHTML = this.state.questionsList[
       index
     ].options[2];
-    document.getElementById("opt4").innerText = this.state.questionsList[
+    document.getElementById("opt4").innerHTML = this.state.questionsList[
       index
     ].options[3];
+  };
+  restartQuiz = () => {
+    this.setState({
+      questionNo: 0,
+      score: 0,
+      playId: this.state.playId
+    });
+    this.refs.scoreModal.handleClose("restart");
+  };
+  goBack = () => {
+    this.setState({
+      goback: true
+    });
   };
   render() {
     if (this.state.questionsList.length) {
@@ -112,11 +155,18 @@ class playquiz extends Component {
         this.setQuestion(this.state.questionNo);
       } else {
         console.log("your score is: ", this.state.score);
-        //modal with restart quiz and back button and score
       }
+    }
+    if (this.state.goback === true) {
+      <Redirect to="/homepage" />;
     }
     return (
       <Auxiliary>
+        <ScoreModal
+          ref={"scoreModal"}
+          goBack={this.goBack}
+          restartQuiz={this.restartQuiz}
+        />
         <div className="bg"></div>
         <div className="bg-text txt">
           <p id="question"></p>

@@ -11,7 +11,7 @@ import "../../public/css/play.css";
 import Auxiliary from "../auxillary/Auxillary.jsx";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-class QuestionsTree extends React.PureComponent {
+class homepage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ class QuestionsTree extends React.PureComponent {
     $.ajax({
       url: "http://localhost:8000/getcatagoriesandsubcatagories",
       type: "GET",
-      success: function(response) {
+      success: function (response) {
         if (response) {
           console.log(response);
           const res = JSON.parse(response);
@@ -39,7 +39,7 @@ class QuestionsTree extends React.PureComponent {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -69,7 +69,6 @@ class QuestionsTree extends React.PureComponent {
     if (this.state.startQuiz) {
       btn = (
         <Link to="/playquiz">
-          {" "}
           <Button data-micron="squeeze" onClick={this.getId}>
             Start Quiz
           </Button>
@@ -90,7 +89,7 @@ class QuestionsTree extends React.PureComponent {
     {
       return this.state.source.length ? (
         <Auxiliary>
-          <div className="txt">Welcome to Quizia</div>
+          <div className="quizheader">Welcome to Quizia</div>
           <div className="bg-text">
             <p>Please select a catagory from the left panel.</p>
             <p>You will be given 10 questions on the selected catagory.</p>
@@ -107,9 +106,9 @@ class QuestionsTree extends React.PureComponent {
           </div>
         </Auxiliary>
       ) : (
-        <p>Loading....</p>
-      );
+          <p>Loading....</p>
+        );
     }
   }
 }
-export default QuestionsTree;
+export default homepage;

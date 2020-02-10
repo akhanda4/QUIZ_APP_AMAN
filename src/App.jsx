@@ -68,30 +68,29 @@ export default class App extends PureComponent {
             render={() => (
               <Login
                 authenticated={this.authenticated}
-                isAuthenticated={this.state.isAuthenticated}
+              // isAuthenticated={this.state.isAuthenticated}
               />
             )}
           />
           <Route
             path="/admin/catagories"
-            exact
-            render={() => <Catagories authenticated={this.authenticated} />}
+            render={() => <Catagories /*authenticated={this.authenticated}*/ />}
           />
           <Route
             path="/admin/subcatagories"
             exact
-            render={() => <Subcatagories authenticated={this.authenticated} />}
+            render={() => <Subcatagories /*authenticated={this.authenticated}*/ />}
           />
 
           <Route
             path="/admin/questions"
             exact
-            render={() => <Questions authenticated={this.authenticated} />}
+            render={() => <Questions /*authenticated={this.authenticated}*/ />}
           />
           <Route
             path="/admin"
             exact
-            render={() => <Quizmaker authenticated={this.authenticated} />}
+            render={() => <Quizmaker /*authenticated={this.authenticated}*/ />}
           />
           {/* {this.state.isAuthenticated ? (
             <Route

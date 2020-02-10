@@ -3,19 +3,22 @@
 }
 .nav-item {
   padding: 5px;
-  /* box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box; */
 }
-.nav-item:hover {
-  border: 1px solid rgb(233, 233, 233);
-  border-radius: 3px;
-  cursor: pointer;
+a:hover{
+  text-decoration: none!important;
 }
-.nav-item:active {
-  border-bottom: 0;
+.catActive{
+  color: rgb(0, 0, 82);
+  font-weight: bolder;
 }
-
+.quesActive{
+  color: rgb(0, 0, 82);
+  font-weight: bolder;
+}
+.subCatActive{
+  color: rgb(0, 0, 82);
+  font-weight: bolder;
+}
 .noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

@@ -32,7 +32,7 @@ class Catagories extends Component {
       <Auxiliary>
         <div className="bg"></div>
         <Adminnavbar authenticated={this.props.authenticated} />
-        <Routerbar activekey={"/admin/catagories"} />
+        <Routerbar subCatActive={"subCatActive"} />
         <div className="Dcentered">
           <SubcatagoriesTree
             ref="subtree"

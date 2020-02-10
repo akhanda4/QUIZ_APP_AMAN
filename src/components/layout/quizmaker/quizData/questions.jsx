@@ -76,7 +76,7 @@ class Questions extends Component {
       <Auxiliary>
         <div className="bg"></div>
         <Adminnavbar authenticated={this.props.authenticated} />
-        <Routerbar activekey={"/admin/catagories"} />
+        <Routerbar quesActive={"quesActive"} />
         <div className="Dcentered">
           <QuestionsTree
             ref="questree"

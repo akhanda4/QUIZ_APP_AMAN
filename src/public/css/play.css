@@ -1,16 +1,14 @@
+* {
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
+}
 body {
   background-color: azure;
 }
-/* .bg {
-  background-image: url("../images/backgroundimg.jpg");
-  height: 100vh;
-  width: 100vw;
-  filter: blur(10px);
-  -webkit-filter: blur(150px);
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 .bg-text {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(113, 186, 235, 0.4); /* Black w/opacity/see-through */
@@ -29,14 +27,14 @@ body {
 .Dcentered {
   top: 32%;
 }
-.txt {
+.quizheader{
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  background-color: rgba(0, 135, 238, 0.651); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
   position: absolute;
-  top: 10%;
+  top: 3rem;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -44,6 +42,22 @@ body {
   padding: 20px;
   text-align: center;
   font-size: 2rem;
+}
+.txt {
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color:rgba(0, 135, 238, 0.651); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 8rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 50%;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.6rem;
 }
 #opt1 {
   cursor: pointer;
@@ -53,13 +67,14 @@ body {
   font-weight: 500;
   border: 3px solid #f1f1f1;
   position: absolute;
-  top: 45%;
+  top: 55%;
   left: 65%;
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 20%;
   padding: 20px;
   text-align: center;
+  font-weight: bolder;
 }
 #opt2 {
   cursor: pointer;
@@ -69,13 +84,14 @@ body {
   font-weight: 500;
   border: 3px solid #f1f1f1;
   position: absolute;
-  top: 45%;
+  top: 55%;
   left: 35%;
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 20%;
   padding: 20px;
   text-align: center;
+  font-weight: bolder;
 }
 #opt3 {
   cursor: pointer;
@@ -85,13 +101,14 @@ body {
   font-weight: 500;
   border: 3px solid #f1f1f1;
   position: absolute;
-  top: 65%;
+  top: 75%;
   left: 35%;
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 20%;
   padding: 20px;
   text-align: center;
+  font-weight: bolder;
 }
 #opt4 {
   cursor: pointer;
@@ -101,20 +118,22 @@ body {
   font-weight: 500;
   border: 3px solid #f1f1f1;
   position: absolute;
-  top: 65%;
+  top: 75%;
   left: 65%;
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 20%;
   padding: 20px;
   text-align: center;
+  font-weight: bolder;
 }
 #opt1:hover,
 #opt2:hover,
 #opt3:hover,
 #opt4:hover {
-  background-color: blue;
+  background-color: rgb(73, 73, 255);
   color: white;
+  font-weight: bolder;
 }
 #hiddenId {
   display: none;

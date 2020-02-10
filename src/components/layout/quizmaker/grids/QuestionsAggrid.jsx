@@ -74,6 +74,7 @@ class QuestionsAggrid extends Component {
     }
   };
   fillQuestionsState(questionsList) {
+    console.log(questionsList);
     this.setState({
       rowData: questionsList
     });
@@ -92,10 +93,10 @@ class QuestionsAggrid extends Component {
         Add Question
       </Button>
     ) : (
-      <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
-        Add Question
+        <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
+          Add Question
       </Button>
-    );
+      );
     return (
       <Auxiliary>
         <DeleteQuestionModal

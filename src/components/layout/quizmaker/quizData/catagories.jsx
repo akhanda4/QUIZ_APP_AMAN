@@ -13,7 +13,7 @@ class Catagories extends Component {
       <Auxiliary>
         <div className="bg"></div>
         <Adminnavbar authenticated={this.props.authenticated} />
-        <Routerbar activekey={"none"} />
+        <Routerbar catActive={"catActive"} />
         <CatagoriesAggrid />
       </Auxiliary>
     );

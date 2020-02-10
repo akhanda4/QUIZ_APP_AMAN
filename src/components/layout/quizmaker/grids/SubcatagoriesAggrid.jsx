@@ -87,7 +87,7 @@ class App extends Component {
       url: "http://localhost:8000/getsubcatagoriesforgrid",
       type: "POST",
       data: obj,
-      success: function(response) {
+      success: function (response) {
         if (response) {
           this.setState({
             rowData: response
@@ -96,7 +96,7 @@ class App extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -121,10 +121,10 @@ class App extends Component {
         Add SubCatagory
       </Button>
     ) : (
-      <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
-        Add SubCatagory
+        <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
+          Add SubCatagory
       </Button>
-    );
+      );
     return (
       <Auxiliary>
         <DeleteSubCatagoryModal
