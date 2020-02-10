@@ -7,7 +7,6 @@ import "../../../../public/css/CatagoriesAggrid.css";
 import SubCatagoryModal from "../../Modal/subCatagoryModal.jsx";
 import DeleteSubCatagoryModal from "../../Modal/deletesubcatagorymodal.jsx";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
-
 import $ from "jquery";
 import {
   MdCreate,
@@ -81,9 +80,10 @@ class App extends Component {
     let rowdata = this.state.rowData[event.currentTarget.id];
     this.refs.deleteModalRef.handleShow(rowdata);
   };
-  // editRow = () => {
-  //   console.log("editing row");
-  // };
+  editRow = (event) => {
+    let updateSubCat = this.state.rowData[event.currentTarget.id];
+    this.props.editSubCatagoryData(updateSubCat);
+  };
 
   getSubcatagories = () => {
     const obj = {};
@@ -156,7 +156,7 @@ class App extends Component {
           autoCloseDelay={3000}
           template={"success"}
         >
-          <div id="subcatgrid_sucess_message">Updated Successfully.</div>
+          <div id="subcatgrid_sucess_message"></div>
         </JqxNotification>
         <DeleteSubCatagoryModal
           isDeleted={this.isDeleted}
@@ -167,6 +167,7 @@ class App extends Component {
           activeCatagory={this.props.catagoryData}
           isAdded={this.isAdded}
         />
+
         <div
           className="ag-theme-balham"
           style={{

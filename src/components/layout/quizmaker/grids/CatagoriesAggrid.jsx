@@ -9,6 +9,9 @@ import DeleteModal from "../../Modal/deletecatagorymodal.jsx";
 import $ from "jquery";
 import { MdCreate, MdDeleteForever } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
+import EditCatagoryModal from "../../Modal/EditCatagoryModal.jsx";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -57,26 +60,29 @@ class App extends Component {
         }
       ],
       rowData: null,
-      deleted: false
+      deleted: false,
+      editCatagoryId: null
     };
+    this.pageNo = 0;
   }
   componentDidMount() {
-    $.ajax({
-      url: "http://localhost:8000/getcatagories",
-      type: "GET",
-      success: function (response) {
-        if (response) {
-          this.setState({
-            rowData: response
-          });
-        } else {
-          console.log("no response");
+    let page =
+      $.ajax({
+        url: "http://localhost:8000/getcatagories",
+        type: "GET",
+        success: function (response) {
+          if (response) {
+            this.setState({
+              rowData: response
+            });
+          } else {
+            console.log("no response");
+          }
+        }.bind(this),
+        error: function (response) {
+          console.log(response);
         }
-      }.bind(this),
-      error: function (response) {
-        console.log(response);
-      }
-    });
+      });
   }
   onGridReady = params => {
     this.api = params.api;
@@ -129,28 +135,24 @@ class App extends Component {
     this.refreshGrid();
   };
   editRow = event => {
-    return;
-    let rowdata = this.state.rowData[event.currentTarget.id];
-    $.ajax({
-      url: "http://localhost:8000/editcatagory",
-      type: "POST",
-      data: rowdata,
-      success: function (response) {
-        if (response) {
-          console.log(response);
-        } else {
-          console.log("no response");
-        }
-      }.bind(this),
-      error: function (response) {
-        console.log(response);
-      }
-    });
+
+    let editCatagoryId = this.state.rowData[event.currentTarget.id];
+    this.setState({
+      editCatagoryId: editCatagoryId
+    })
+    console.log(editCatagoryId);
+    this.refs.EditCatgoryModalRef.handleShow();
   };
+  isUpdated = (check) => {
+    if (check === true) {
+      this.isAdded(true);
+    }
+  }
   render() {
     return (
       <Auxiliary>
         <Modal ref={"ModalRef"} isAdded={this.isAdded} />
+        <EditCatagoryModal ref={"EditCatgoryModalRef"} editCatagoryId={this.state.editCatagoryId} isUpdated={this.isUpdated} />
         <DeleteModal ref={"deleteModalRef"} refreshGrid={this.refreshGrid} />
         <div
           className="ag-theme-balham"

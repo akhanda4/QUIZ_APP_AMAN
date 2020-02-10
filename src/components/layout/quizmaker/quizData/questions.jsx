@@ -77,6 +77,11 @@ class Questions extends Component {
   isDeleted = () => {
     this.getId(this.state.id);
   };
+  isQuestionUpdated = (check) => {
+    if (check === true) {
+      this.getId(this.state.id);
+    }
+  }
   render() {
     return (
       <Auxiliary>
@@ -111,8 +116,6 @@ class Questions extends Component {
           <QuestionsTree
             ref="questree"
             getId={this.getId}
-          // catagoryData={this.state.catagoryData}
-          // subCatagoryData={this.state.subCatagoryData}
           />
         </div>
         <div className="Ccentered">
@@ -122,7 +125,7 @@ class Questions extends Component {
             isAdded={this.isAdded}
             isDeleted={this.isDeleted}
             addBtnEnable={this.state.addBtnEnable}
-          // catagoryData={this.state.catagoryData}
+            isQuestionUpdated={this.isQuestionUpdated}
           />
         </div>
       </Auxiliary>

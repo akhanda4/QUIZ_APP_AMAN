@@ -45,14 +45,7 @@ export default class App extends PureComponent {
     });
   };
   render() {
-    let element = "";
-    // if (this.state.isAuthenticated) {
-    //   element = (
-    //     <Redirect to="/admin" />
-    //   )
-    // }
     return (
-
       <BrowserRouter>
         <Auxillary>
           <Route
@@ -67,8 +60,6 @@ export default class App extends PureComponent {
               <Playquiz playId={this.state.playId} redirect={this.redirect} />
             )}
           />
-          {element}
-
           <Route
             path="/login"
             exact

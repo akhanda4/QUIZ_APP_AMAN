@@ -5,14 +5,15 @@ import Routerbar from "../../navs/routerbar.jsx";
 import SubcatagoriesTree from "../Tree/SubcatagoriesTree.jsx";
 import SubcatagoriesAggrid from "../grids/SubcatagoriesAggrid.jsx";
 import "../../../../public/css/subcatagories.css";
-import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
-
+import EditSubCatagoryModal from "../../Modal/EditSubCatagoryModal.jsx";
 class SubCatagories extends Component {
   constructor(props) {
     super(props);
     this.state = {
       catagoryData: "",
-      addBtnEnable: false
+      addBtnEnable: false,
+      editSubData: '',
+      subCatUpdated: false
     };
   }
   getSelectedItem = (catagoryData, id) => {
@@ -29,35 +30,30 @@ class SubCatagories extends Component {
       });
     }
   };
+  editSubCatagoryData = (data) => {
+    this.refs.editSubCatModal.handleShow();
+    this.setState({
+      editSubData: data
+    })
+  }
+  isUpdated = (check) => {
+    if (check === true) {
+      this.setState({
+        subCatUpdated: true
+      })
+    } else {
+      this.setState({
+        subCatUpdated: false
+      })
+    }
+    this.refs.subAggrid.getSubcatagories();
+
+  }
   render() {
     return (
       <Auxiliary>
-        <JqxNotification
-          ref={"msgNotification"}
-          width={250}
-          position={"top-right"}
-          opacity={0.9}
-          autoOpen={false}
-          autoClose={true}
-          animationOpenDelay={800}
-          autoCloseDelay={3000}
-          template={"error"}
-        >
-          <div id="error_message">Welcome to our website.</div>
-        </JqxNotification>
-        <JqxNotification
-          ref={"msgNotificationSuccess"}
-          width={250}
-          position={"top-right"}
-          opacity={0.9}
-          autoOpen={false}
-          autoClose={true}
-          animationOpenDelay={800}
-          autoCloseDelay={3000}
-          template={"success"}
-        >
-          <div id="sucess_message">Updated Successfully.</div>
-        </JqxNotification>
+
+        <EditSubCatagoryModal ref={"editSubCatModal"} editSubData={this.state.editSubData} isUpdated={this.isUpdated} />
         <div className="bg"></div>
         <div className="Dcentered">
           <SubcatagoriesTree
@@ -70,6 +66,7 @@ class SubCatagories extends Component {
             ref={"subAggrid"}
             addBtnEnable={this.state.addBtnEnable}
             catagoryData={this.state.catagoryData}
+            editSubCatagoryData={this.editSubCatagoryData}
           />
         </div>
       </Auxiliary>

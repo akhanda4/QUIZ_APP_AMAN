@@ -1,9 +1,11 @@
 .pages {
   display: flex;
-  justify-content: center;
   background-color: rgb(236, 236, 236);
   height: 2.1rem;
   margin: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+.ag-theme-balham{
+  text-align: left;
 }

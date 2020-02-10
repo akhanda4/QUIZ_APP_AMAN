@@ -37,13 +37,18 @@ class questionsModal extends Component {
     wrong2 = wrong2.trim();
     wrong3 = wrong3.trim();
     if (!question || !correct || !wrong1 || !wrong2 || !wrong3) {
-      document.getElementById("question_error_message").innerHTML = "Invalid Inputs";
+      document.getElementById("questions_error_message").innerHTML = "Invalid Inputs";
       this.refs.msgNotificationError.open();
       return;
     }
     let options = [wrong1, wrong2, wrong3, correct];
+    options = [...new Set(options)];
 
-    //store it in object
+    if (options.length < 3) {
+      document.getElementById("questions_error_message").innerHTML = "Please check correct and wrong options!";
+      this.refs.msgNotificationError.open();
+      return;
+    }
     let data = {};
     data.id = id;
     data.question = question;
@@ -107,7 +112,7 @@ class questionsModal extends Component {
           autoCloseDelay={3000}
           template={"success"}
         >
-          <div id="questions_sucess_message">Updated Successfully.</div>
+          <div id="questions_success_message">Updated Successfully.</div>
         </JqxNotification>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>

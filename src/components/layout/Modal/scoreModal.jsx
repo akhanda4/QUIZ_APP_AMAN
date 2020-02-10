@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/Modal.css";
+// import "../../../public/css/ScoreModal.css";
 import $ from "jquery";
 import { Link, Redirect } from "react-router-dom";
 class modal extends Component {
@@ -31,7 +32,7 @@ class modal extends Component {
     this.props.restartQuiz();
     return;
   };
-  restoreFocus = () => {};
+  restoreFocus = () => { };
   render() {
     return (
       <Auxiliary>

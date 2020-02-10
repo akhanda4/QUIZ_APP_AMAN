@@ -8,11 +8,10 @@ import DeleteQuestionModal from "../../Modal/deletequestionmodal.jsx";
 
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/QuestionsAggrid.css";
+import EditQuestionModal from "../../Modal/EditQuestionModal.jsx";
 import $ from "jquery";
 import {
   MdCreate,
-  MdNavigateNext,
-  MdNavigateBefore,
   MdDeleteForever
 } from "react-icons/md";
 class QuestionsAggrid extends Component {
@@ -62,7 +61,8 @@ class QuestionsAggrid extends Component {
           }
         }
       ],
-      rowData: []
+      rowData: [],
+      editedRowdata: ''
     };
   }
   addQuestion = () => {
@@ -83,6 +83,21 @@ class QuestionsAggrid extends Component {
     let rowdata = this.state.rowData[event.currentTarget.id];
     this.refs.deleteQuestionModalRef.handleShow(rowdata);
   };
+  editRow = (event) => {
+    let rowdata = this.state.rowData[event.currentTarget.id];
+    console.log(rowdata);
+    this.setState({
+      editedRowdata: rowdata
+    })
+    setTimeout(() => {
+      this.refs.editQuestionModalRef.setData(rowdata);
+    }, 350);
+    this.refs.editQuestionModalRef.handleShow();
+  }
+  isUpdated = (check) => {
+    this.props.isQuestionUpdated(true);
+  }
+
   render() {
     const btn = this.props.addBtnEnable ? (
       <Button
@@ -103,6 +118,7 @@ class QuestionsAggrid extends Component {
           ref="deleteQuestionModalRef"
           isDeleted={this.props.isDeleted}
         />
+        <EditQuestionModal ref="editQuestionModalRef" rowdata={this.state.editedRowdata} isUpdated={this.isUpdated} />
         <QuestionsModal
           id={this.props.id}
           ref={"QuestionsModalRef"} /*isAdded={this.isAdded} */

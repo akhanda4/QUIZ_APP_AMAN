@@ -9,18 +9,18 @@
     margin-top: 2vh;
     width: 50%!important;
 }
-#correct{
+#correct, #editedcorrect{
     background-color: rgb(112, 255, 112);
 }
-#wrong1{
+#wrong1, #editedwrong1{
     background-color: rgb(255, 104, 104);
     color: white!important;
 }
 
-#wrong2{
+#wrong2, #editedwrong2{
     background-color: rgb(255, 104, 104);    
 }
-#wrong3{
+#wrong3, #editedwrong3{
     background-color: rgb(255, 104, 104);
         
 }
