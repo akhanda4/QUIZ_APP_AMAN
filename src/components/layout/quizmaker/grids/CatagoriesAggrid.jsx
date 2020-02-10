@@ -64,7 +64,7 @@ class App extends Component {
     $.ajax({
       url: "http://localhost:8000/getcatagories",
       type: "GET",
-      success: function(response) {
+      success: function (response) {
         if (response) {
           this.setState({
             rowData: response
@@ -73,7 +73,7 @@ class App extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -90,7 +90,7 @@ class App extends Component {
       $.ajax({
         url: "http://localhost:8000/getcatagories",
         type: "GET",
-        success: function(response) {
+        success: function (response) {
           if (response) {
             this.setState({
               rowData: response
@@ -99,7 +99,7 @@ class App extends Component {
             console.log("no response");
           }
         }.bind(this),
-        error: function(response) {
+        error: function (response) {
           console.log(response);
         }
       });
@@ -109,7 +109,7 @@ class App extends Component {
     $.ajax({
       url: "http://localhost:8000/getcatagories",
       type: "GET",
-      success: function(response) {
+      success: function (response) {
         if (response) {
           this.setState({
             rowData: response
@@ -118,7 +118,7 @@ class App extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -135,14 +135,14 @@ class App extends Component {
       url: "http://localhost:8000/editcatagory",
       type: "POST",
       data: rowdata,
-      success: function(response) {
+      success: function (response) {
         if (response) {
           console.log(response);
         } else {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -188,10 +188,6 @@ class App extends Component {
             <Pagination>
               <Pagination.Prev />
               <Pagination.Item>{1}</Pagination.Item>
-              <Pagination.Item>{2}</Pagination.Item>
-              <Pagination.Item>{3}</Pagination.Item>
-              <Pagination.Item active>{4}</Pagination.Item>
-              <Pagination.Item>{5}</Pagination.Item>
               <Pagination.Next />
             </Pagination>
           </div>

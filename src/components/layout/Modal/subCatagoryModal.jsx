@@ -3,6 +3,8 @@ import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/subcatagoryModal.css";
 import $ from "jquery";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class modal extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,12 @@ class modal extends Component {
   //pci = parentCatagoryId
   AddAndClose = () => {
     let subC = document.getElementById("subcatagory").value;
+    subC = subC.trim();
+    if (!subC) {
+      document.getElementById("subcat_error_message").innerHTML = "Invalid Inputs";
+      this.refs.msgNotificationError.open();
+      return;
+    }
     let activeCatagoryId = this.props.activeCatagory.id;
     console.log(subC, activeCatagoryId);
 
@@ -33,7 +41,7 @@ class modal extends Component {
       url: "http://localhost:8000/addsubcatagory",
       type: "POST",
       data: data,
-      success: function(response) {
+      success: function (response) {
         if (response) {
           console.log(response);
           if (response !== "1") {
@@ -52,7 +60,7 @@ class modal extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
@@ -60,6 +68,32 @@ class modal extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="subcat_error_message"></div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="subcat_sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Sub Catagories</Modal.Title>

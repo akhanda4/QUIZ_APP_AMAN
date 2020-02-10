@@ -5,11 +5,9 @@ import Auxillary from "./components/auxillary/Auxillary.jsx";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Login from "./components/layout/login.jsx";
 import Quizmaker from "./components/layout/quizmaker/quizmaker.jsx";
-import Questions from "./components/layout/quizmaker/quizData/questions.jsx";
-import Catagories from "./components/layout/quizmaker/quizData/catagories.jsx";
-import Subcatagories from "./components/layout/quizmaker/quizData/subcatagories.jsx";
 import Homepage from "./components/play/homepage.jsx";
 import Playquiz from "./components/play/playquizpage.jsx";
+import Auxiliary from "./components/auxillary/Auxillary.jsx";
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -47,9 +45,21 @@ export default class App extends PureComponent {
     });
   };
   render() {
+    let element = "";
+    // if (this.state.isAuthenticated) {
+    //   element = (
+    //     <Redirect to="/admin" />
+    //   )
+    // }
     return (
+
       <BrowserRouter>
         <Auxillary>
+          <Route
+            path="/homepage"
+            exact
+            render={() => <Homepage getId={this.getId} />}
+          />
           <Route
             path="/playquiz"
             exact
@@ -57,11 +67,8 @@ export default class App extends PureComponent {
               <Playquiz playId={this.state.playId} redirect={this.redirect} />
             )}
           />
-          <Route
-            path="/homepage"
-            exact
-            render={() => <Homepage getId={this.getId} />}
-          />
+          {element}
+
           <Route
             path="/login"
             exact
@@ -71,26 +78,12 @@ export default class App extends PureComponent {
               />
             )}
           />
-          {/* <Route
-            path="/admin/catagories"
-            render={() => <Catagories />}
-          />
-          <Route
-            path="/admin/subcatagories"
-            exact
-            render={() => <Subcatagories />}
-          />
-
-          <Route
-            path="/admin/questions"
-            exact
-            render={() => <Questions />}
-          /> */}
-          <Route
+          {this.state.isAuthenticated ? <Route
             path="/admin"
-            exact
-            render={() => <Quizmaker />}
-          />
+            render={() => (
+              <Quizmaker />
+            )}
+          /> : ''}
           {this.state.redirectToHomepage ? <Redirect to="/homepage" /> : ""}
         </Auxillary>
       </BrowserRouter>

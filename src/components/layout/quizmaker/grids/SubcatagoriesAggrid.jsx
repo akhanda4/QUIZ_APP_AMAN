@@ -6,11 +6,11 @@ import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/CatagoriesAggrid.css";
 import SubCatagoryModal from "../../Modal/subCatagoryModal.jsx";
 import DeleteSubCatagoryModal from "../../Modal/deletesubcatagorymodal.jsx";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 import $ from "jquery";
 import {
   MdCreate,
-  MdNavigateNext,
-  MdNavigateBefore,
   MdDeleteForever
 } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
@@ -69,7 +69,12 @@ class App extends Component {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
-  addSubCatagory = params => {
+  addSubCatagory = () => {
+    if (!this.props.addBtnEnable) {
+      document.getElementById("subcatgrid_error_message").innerHTML = "Please Select a Catagory!";
+      this.refs.msgNotificationError.open();
+      return;
+    }
     this.refs.SubCatagoryModalRef.handleShow();
   };
   deleteRow = event => {
@@ -121,12 +126,38 @@ class App extends Component {
         Add SubCatagory
       </Button>
     ) : (
-        <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
+        <Button onClick={this.addSubCatagory} variant="outline-light" className="mr-sm-3" data-micron="flicker">
           Add SubCatagory
       </Button>
       );
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="subcatgrid_error_message"></div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="subcatgrid_sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <DeleteSubCatagoryModal
           isDeleted={this.isDeleted}
           ref={"deleteModalRef"}

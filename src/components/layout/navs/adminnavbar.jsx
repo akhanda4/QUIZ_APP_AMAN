@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
 import Auxiliary from "../../auxillary/Auxillary.jsx";
+import { Redirect } from "react-router-dom";
 // import { Route, Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
 class Adminnavbar extends Component {
@@ -13,7 +14,7 @@ class Adminnavbar extends Component {
   clearCookie = () => {
     let cookie = new Cookies();
     cookie.remove("email");
-    this.props.authenticated();
+    <Redirect to="/login" />
   };
 
   render() {
@@ -28,6 +29,7 @@ class Adminnavbar extends Component {
               <Button
                 size="lg"
                 variant="outline-light"
+                href="/login"
                 onClick={this.clearCookie}
               >
                 Logout
