@@ -42,13 +42,18 @@ export default class login extends Component {
       data: credentials,
       type: "POST",
       success: response => {
-        if (response.length) {
-          console.log(response);
+        if (response) {
+          if (response.errormessage) {
+            document.getElementById("login_error_message").innerHTML =
+              "Wrong Email or Password";
+            this.refs.msgNotificationError.open();
+            return;
+          }
           this.setState(
             {
               authenticated: true
             },
-            () => { }
+            () => {}
           );
           cookies.set("email", credentials.email);
           setTimeout(() => {
@@ -56,7 +61,8 @@ export default class login extends Component {
           }, 200);
         } else {
           if (response.length === 0) {
-            document.getElementById("login_error_message").innerHTML = "Wrong Email or Password";
+            document.getElementById("login_error_message").innerHTML =
+              "Wrong Email or Password";
             this.refs.msgNotificationError.open();
             return;
           }
@@ -109,8 +115,8 @@ export default class login extends Component {
           {this.state.authenticated ? (
             <Redirect to="/admin" />
           ) : (
-              <Redirect to="/login" />
-            )}
+            <Redirect to="/login" />
+          )}
           <form
             onSubmit={event => this.validate(event)}
             id="form"
