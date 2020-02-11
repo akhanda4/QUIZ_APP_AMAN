@@ -33,13 +33,12 @@ class deletesubcategorymodal extends Component {
       success: function(response) {
         if (response) {
           console.log(response);
-
-          //   if (response[1][0] == 1) {
-          //     console.log("subCategory deleted");
-          //   }
-          //   if (response[2][0] == 1) {
-          //     console.log("questions deleted");
-          //   }
+          if (response[0][0] == 1) {
+            console.log("subCategory deleted");
+          }
+          if (response[1][0] == 1) {
+            console.log("questions deleted");
+          }
           this.props.isDeleted(true);
           this.handleClose();
           //trigger notifications TODO:
