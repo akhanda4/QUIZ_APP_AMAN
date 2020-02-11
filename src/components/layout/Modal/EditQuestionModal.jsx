@@ -32,7 +32,7 @@ class questionsModal extends Component {
       show: true
     });
   };
-  // pci = parentCatagoryId;
+  // pci = parentCategoryId;
   UpdateAndClose = () => {
     let rowdata = this.props.rowdata; //subcat with cat
     let question = document.getElementById("editedquestion").value;

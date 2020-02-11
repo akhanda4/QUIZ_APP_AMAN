@@ -121,7 +121,7 @@ class QuestionsAggrid extends Component {
         <QuestionsModal
           id={this.props.id}
           ref={"QuestionsModalRef"} /*isAdded={this.isAdded} */
-          activeCatagory={this.props.catagoryData}
+          activeCategory={this.props.categoryData}
           isAdded={this.isAdded}
         />
         <div

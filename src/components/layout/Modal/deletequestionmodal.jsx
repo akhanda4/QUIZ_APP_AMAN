@@ -36,7 +36,7 @@ class deletequestionmodal extends Component {
           console.log(response);
 
           // if (response[1][0] == 1) {
-          //   console.log("subCatagory deleted");
+          //   console.log("subCategory deleted");
           // }
           // if (response[2][0] == 1) {
           //   console.log("questions deleted");

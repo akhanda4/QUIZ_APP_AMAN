@@ -17,9 +17,9 @@ class QuestionsTree extends React.PureComponent {
 
   componentDidMount() {
     $.ajax({
-      url: "http://localhost:8000/getcatagoriesandsubcatagories",
+      url: "http://localhost:8000/getcategoriesandsubcategories",
       type: "GET",
-      success: function (response) {
+      success: function(response) {
         if (response) {
           const res = JSON.parse(response);
           this.setState({
@@ -29,7 +29,7 @@ class QuestionsTree extends React.PureComponent {
           console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });

@@ -26,7 +26,7 @@ class homepage extends React.PureComponent {
 
   componentDidMount() {
     $.ajax({
-      url: "http://localhost:8000/getcatagoriesandsubcatagories",
+      url: "http://localhost:8000/getcategoriesandsubcategories",
       type: "GET",
       success: function(response) {
         if (response) {
@@ -115,8 +115,8 @@ class homepage extends React.PureComponent {
           </JqxNotification>
           <div className="quizheader">Welcome to Quizia</div>
           <div className="bg-text">
-            <p>Please select a catagory from the left panel.</p>
-            <p>You will be given 10 questions on the selected catagory.</p>
+            <p>Please select a category from the left panel.</p>
+            <p>You will be given 10 questions on the selected category.</p>
             <hr />
             {btn}
           </div>

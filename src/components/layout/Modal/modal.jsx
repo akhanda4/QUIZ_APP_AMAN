@@ -21,11 +21,11 @@ class modal extends Component {
     });
   };
   AddAndClose = () => {
-    let catagory = document.getElementById("catagory").value;
+    let category = document.getElementById("category").value;
     $.ajax({
-      url: "http://localhost:8000/addcatagory",
+      url: "http://localhost:8000/addcategory",
       type: "POST",
-      data: { catagory },
+      data: { category },
       success: function(response) {
         if (response === "1") {
           this.props.isAdded(true);
@@ -44,11 +44,11 @@ class modal extends Component {
       <Auxiliary>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Catagories</Modal.Title>
+            <Modal.Title>Add Categories</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <InputGroup className="mb-3">
-              <input type="text" id="catagory" placeholder="Catagory Name" />
+              <input type="text" id="category" placeholder="Category Name" />
             </InputGroup>
           </Modal.Body>
           <Modal.Footer>
@@ -56,7 +56,7 @@ class modal extends Component {
               Cancel
             </Button>
             <Button variant="primary" onClick={this.AddAndClose}>
-              Add Catagory
+              Add Category
             </Button>
           </Modal.Footer>
         </Modal>

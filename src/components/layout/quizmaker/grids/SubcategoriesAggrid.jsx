@@ -3,22 +3,19 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
-import "../../../../public/css/CatagoriesAggrid.css";
-import SubCatagoryModal from "../../Modal/subCatagoryModal.jsx";
-import DeleteSubCatagoryModal from "../../Modal/deletesubcatagorymodal.jsx";
+import "../../../../public/css/CategoriesAggrid.css";
+import SubCategoryModal from "../../Modal/subCategoryModal.jsx";
+import DeleteSubCategoryModal from "../../Modal/deletesubcategorymodal.jsx";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
 import $ from "jquery";
-import {
-  MdCreate,
-  MdDeleteForever
-} from "react-icons/md";
+import { MdCreate, MdDeleteForever } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "CATAGORY", field: "subcatagory", width: 360 },
+        { headerName: "CATEGORY", field: "subcategory", width: 360 },
         {
           headerName: "EDIT",
           field: "edit",
@@ -68,31 +65,32 @@ class App extends Component {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
-  addSubCatagory = () => {
+  addSubCategory = () => {
     if (!this.props.addBtnEnable) {
-      document.getElementById("subcatgrid_error_message").innerHTML = "Please Select a Catagory!";
+      document.getElementById("subcatgrid_error_message").innerHTML =
+        "Please Select a Category!";
       this.refs.msgNotificationError.open();
       return;
     }
-    this.refs.SubCatagoryModalRef.handleShow();
+    this.refs.SubCategoryModalRef.handleShow();
   };
   deleteRow = event => {
     let rowdata = this.state.rowData[event.currentTarget.id];
     this.refs.deleteModalRef.handleShow(rowdata);
   };
-  editRow = (event) => {
+  editRow = event => {
     let updateSubCat = this.state.rowData[event.currentTarget.id];
-    this.props.editSubCatagoryData(updateSubCat);
+    this.props.editSubCategoryData(updateSubCat);
   };
 
-  getSubcatagories = () => {
+  getSubcategories = () => {
     const obj = {};
-    obj.parentCatagoryId = this.props.catagoryData.id;
+    obj.parentCategoryId = this.props.categoryData.id;
     $.ajax({
-      url: "http://localhost:8000/getsubcatagoriesforgrid",
+      url: "http://localhost:8000/getsubcategoriesforgrid",
       type: "POST",
       data: obj,
-      success: function (response) {
+      success: function(response) {
         if (response) {
           this.setState({
             rowData: response
@@ -101,19 +99,19 @@ class App extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });
   };
   isAdded = value => {
     if (value === true) {
-      this.getSubcatagories();
+      this.getSubcategories();
     }
   };
   isDeleted = value => {
     if (value === true) {
-      this.getSubcatagories();
+      this.getSubcategories();
     }
   };
   render() {
@@ -121,15 +119,20 @@ class App extends Component {
       <Button
         variant="outline-light"
         className="mr-sm-3"
-        onClick={this.addSubCatagory}
+        onClick={this.addSubCategory}
       >
-        Add SubCatagory
+        Add SubCategory
       </Button>
     ) : (
-        <Button onClick={this.addSubCatagory} variant="outline-light" className="mr-sm-3" data-micron="flicker">
-          Add SubCatagory
+      <Button
+        onClick={this.addSubCategory}
+        variant="outline-light"
+        className="mr-sm-3"
+        data-micron="flicker"
+      >
+        Add SubCategory
       </Button>
-      );
+    );
     return (
       <Auxiliary>
         <JqxNotification
@@ -158,13 +161,13 @@ class App extends Component {
         >
           <div id="subcatgrid_sucess_message"></div>
         </JqxNotification>
-        <DeleteSubCatagoryModal
+        <DeleteSubCategoryModal
           isDeleted={this.isDeleted}
           ref={"deleteModalRef"}
         />
-        <SubCatagoryModal
-          ref={"SubCatagoryModalRef"} /*isAdded={this.isAdded} */
-          activeCatagory={this.props.catagoryData}
+        <SubCategoryModal
+          ref={"SubCategoryModalRef"} /*isAdded={this.isAdded} */
+          activeCategory={this.props.categoryData}
           isAdded={this.isAdded}
         />
 

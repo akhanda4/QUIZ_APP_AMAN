@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
-import "../../../public/css/subcatagoryModal.css";
-import $ from "jquery";
+import "../../../public/css/Modal.css";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
 
+import $ from "jquery";
 class modal extends Component {
   constructor(props) {
     super(props);
@@ -22,39 +22,26 @@ class modal extends Component {
       show: true
     });
   };
-  //pci = parentCatagoryId
   AddAndClose = () => {
-    let subC = document.getElementById("subcatagory").value;
-    subC = subC.trim();
-    if (!subC) {
-      document.getElementById("subcat_error_message").innerHTML =
-        "Invalid Inputs";
+    let editData = {};
+    delete this.props.editSubData["subcategory"];
+    editData._id = this.props.editSubData["_id"]["$oid"];
+    editData.parentCategoryId = this.props.editSubData["parentCategoryId"];
+    editData.subcategory = document.getElementById("editsubcategory").value;
+    if (!editData.subcategory.trim()) {
+      document.getElementById("editsubcat_error_message").innerHTML =
+        "This field can't be empty!";
       this.refs.msgNotificationError.open();
       return;
     }
-    let activeCatagoryId = this.props.activeCatagory.id;
-
-    let data = {};
-    data.subcatagory = document.getElementById("subcatagory").value;
-    data.parentCatagoryId = activeCatagoryId; //:TODO:
+    console.log(editData);
     $.ajax({
-      url: "http://localhost:8000/addsubcatagory",
-      type: "POST",
-      data: data,
+      url: "http://localhost:8000/updatesubcategory",
+      type: "PUT",
+      data: editData,
       success: function(response) {
-        if (response) {
-          console.log(response);
-          if (response !== "1") {
-            try {
-              let err = JSON.parse(response);
-              alert(err.error);
-              this.handleClose();
-              return;
-            } catch (error) {
-              console.log(error);
-            }
-          }
-          this.props.isAdded(true);
+        if (response === "1") {
+          this.props.isUpdated(true);
           this.handleClose();
         } else {
           console.log("no response");
@@ -64,6 +51,10 @@ class modal extends Component {
         console.log(response);
       }
     });
+    document.getElementById("editsubcat_success_message").innerHTML =
+      "Subcategory updated Successfully!";
+    this.refs.msgNotificationSuccess.open();
+    return;
   };
   render() {
     return (
@@ -79,7 +70,7 @@ class modal extends Component {
           autoCloseDelay={3000}
           template={"error"}
         >
-          <div id="subcat_error_message"></div>
+          <div id="editsubcat_error_message"></div>
         </JqxNotification>
         <JqxNotification
           ref={"msgNotificationSuccess"}
@@ -92,18 +83,18 @@ class modal extends Component {
           autoCloseDelay={3000}
           template={"success"}
         >
-          <div id="subcat_sucess_message">Updated Successfully.</div>
+          <div id="editsubcat_success_message">Welcome to our website.</div>
         </JqxNotification>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Sub Catagories</Modal.Title>
+            <Modal.Title>Update SubCategory</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <InputGroup className="mb-3">
               <input
                 type="text"
-                id="subcatagory"
-                placeholder="Sub Catagory Name"
+                id="editsubcategory"
+                placeholder="Category Name"
               />
             </InputGroup>
           </Modal.Body>
@@ -112,7 +103,7 @@ class modal extends Component {
               Cancel
             </Button>
             <Button variant="primary" onClick={this.AddAndClose}>
-              Add subcatagory
+              Update SubCategory
             </Button>
           </Modal.Footer>
         </Modal>

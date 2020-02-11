@@ -15,7 +15,7 @@ class App extends React.PureComponent {
   }
   componentDidMount() {
     $.ajax({
-      url: "http://localhost:8000/getcatagoriesfortree",
+      url: "http://localhost:8000/getcategoriesfortree",
       type: "GET",
       success: function(response) {
         if (response) {

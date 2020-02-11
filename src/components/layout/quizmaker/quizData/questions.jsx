@@ -4,7 +4,7 @@ import Adminnavbar from "../../navs/adminnavbar.jsx";
 import Routerbar from "../../navs/routerbar.jsx";
 import QuestionsTree from "../Tree/QuestionsTree.jsx";
 import QuestionsAggrid from "../grids/QuestionsAggrid.jsx";
-import "../../../../public/css/subcatagories.css";
+import "../../../../public/css/subcategories.css";
 import $ from "jquery";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
 
@@ -17,17 +17,17 @@ class Questions extends Component {
       questionsList: ""
     };
   }
-  // getSelectedCatagory = catagoryData => {
+  // getSelectedCategory = categoryData => {
   //   this.setState({
-  //     catagoryData: catagoryData
+  //     categoryData: categoryData
   //   });
-  //   this.refs.quesAggrid.getSubcatagories();
+  //   this.refs.quesAggrid.getSubcategories();
   // };
-  // getSelectedSubcatagory = () => {
+  // getSelectedSubcategory = () => {
   //   this.setState({
-  //     subCatagoryData: subCatagoryData
+  //     subCategoryData: subCategoryData
   //   });
-  //   this.refs.quesAggrid.getSubcatagories();
+  //   this.refs.quesAggrid.getSubcategories();
   // };
   getId = id => {
     if (id.includes("-")) {
@@ -42,7 +42,7 @@ class Questions extends Component {
         url: "http://localhost:8000/getquestions",
         type: "GET",
         data: data,
-        success: function (response) {
+        success: function(response) {
           if (response) {
             this.setState(
               {
@@ -61,7 +61,7 @@ class Questions extends Component {
             this.refs.msgNotificationError.open();
           }
         }.bind(this),
-        error: function (response) {
+        error: function(response) {
           console.log(response);
         }
       });
@@ -77,11 +77,11 @@ class Questions extends Component {
   isDeleted = () => {
     this.getId(this.state.id);
   };
-  isQuestionUpdated = (check) => {
+  isQuestionUpdated = check => {
     if (check === true) {
       this.getId(this.state.id);
     }
-  }
+  };
   render() {
     return (
       <Auxiliary>
@@ -113,10 +113,7 @@ class Questions extends Component {
         </JqxNotification>
         <div className="bg"></div>
         <div className="Dcentered">
-          <QuestionsTree
-            ref="questree"
-            getId={this.getId}
-          />
+          <QuestionsTree ref="questree" getId={this.getId} />
         </div>
         <div className="Ccentered">
           <QuestionsAggrid

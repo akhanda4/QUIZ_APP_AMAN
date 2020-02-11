@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 import Adminnavbar from "../../navs/adminnavbar.jsx";
 import Routerbar from "../../navs/routerbar.jsx";
-import CatagoriesAggrid from "../grids/CatagoriesAggrid.jsx";
+import CategoriesAggrid from "../grids/CategoriesAggrid.jsx";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
-class Catagories extends Component {
+class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,10 +13,10 @@ class Catagories extends Component {
     return (
       <Auxiliary>
         <div className="bg"></div>
-        <CatagoriesAggrid />
+        <CategoriesAggrid />
       </Auxiliary>
     );
   }
 }
 
-export default Catagories;
+export default Categories;

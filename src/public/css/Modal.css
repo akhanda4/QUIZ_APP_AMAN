@@ -1,4 +1,5 @@
-#catagory,#subcatagory {
-  width: 100%!important;
+#category,
+#subcategory {
+  width: 100% !important;
   padding: 5px;
 }

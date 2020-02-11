@@ -4,7 +4,7 @@ import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/Modal.css";
 import $ from "jquery";
 
-class deletecatagorymodal extends Component {
+class deletecategorymodal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,18 +25,18 @@ class deletecatagorymodal extends Component {
       this.rowData = rowdata;
     }
   };
-  deleteCatagoryAndClose = () => {
+  deleteCategoryAndClose = () => {
     $.ajax({
-      url: "http://localhost:8000/deletecatagory",
+      url: "http://localhost:8000/deletecategory",
       type: "POST",
       data: this.rowData,
       success: function(response) {
         if (response) {
           if (response[0][0] == 1) {
-            console.log("Catagory deleted");
+            console.log("Category deleted");
           }
           if (response[1][0] == 1) {
-            console.log("subCatagory deleted");
+            console.log("subCategory deleted");
           }
           if (response[2][0] == 1) {
             console.log("questions deleted");
@@ -58,18 +58,18 @@ class deletecatagorymodal extends Component {
       <Auxiliary>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Delete Catagory</Modal.Title>
+            <Modal.Title>Delete Category</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Modal.Title>
-              Are you sure you want to Delete this Catagory
+              Are you sure you want to Delete this Category
             </Modal.Title>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={this.deleteCatagoryAndClose}>
+            <Button variant="primary" onClick={this.deleteCategoryAndClose}>
               Delete
             </Button>
           </Modal.Footer>
@@ -79,4 +79,4 @@ class deletecatagorymodal extends Component {
   }
 }
 
-export default deletecatagorymodal;
+export default deletecategorymodal;

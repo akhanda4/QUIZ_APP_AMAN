@@ -2,71 +2,73 @@ import React, { Component } from "react";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
 import Adminnavbar from "../../navs/adminnavbar.jsx";
 import Routerbar from "../../navs/routerbar.jsx";
-import SubcatagoriesTree from "../Tree/SubcatagoriesTree.jsx";
-import SubcatagoriesAggrid from "../grids/SubcatagoriesAggrid.jsx";
-import "../../../../public/css/subcatagories.css";
-import EditSubCatagoryModal from "../../Modal/EditSubCatagoryModal.jsx";
-class SubCatagories extends Component {
+import SubcategoriesTree from "../Tree/SubcategoriesTree.jsx";
+import SubcategoriesAggrid from "../grids/SubcategoriesAggrid.jsx";
+import "../../../../public/css/subcategories.css";
+import EditSubCategoryModal from "../../Modal/EditSubCategoryModal.jsx";
+class SubCategories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      catagoryData: "",
+      categoryData: "",
       addBtnEnable: false,
-      editSubData: '',
+      editSubData: "",
       subCatUpdated: false
     };
   }
-  getSelectedItem = (catagoryData, id) => {
+  getSelectedItem = (categoryData, id) => {
     if (id) {
       this.setState({
-        catagoryData: catagoryData,
+        categoryData: categoryData,
         addBtnEnable: true
       });
-      this.refs.subAggrid.getSubcatagories();
+      this.refs.subAggrid.getSubcategories();
     } else {
       this.setState({
-        catagoryData: catagoryData,
+        categoryData: categoryData,
         addBtnEnable: false
       });
     }
   };
-  editSubCatagoryData = (data) => {
+  editSubCategoryData = data => {
     this.refs.editSubCatModal.handleShow();
     this.setState({
       editSubData: data
-    })
-  }
-  isUpdated = (check) => {
+    });
+  };
+  isUpdated = check => {
     if (check === true) {
       this.setState({
         subCatUpdated: true
-      })
+      });
     } else {
       this.setState({
         subCatUpdated: false
-      })
+      });
     }
-    this.refs.subAggrid.getSubcatagories();
-
-  }
+    this.refs.subAggrid.getSubcategories();
+  };
   render() {
     return (
       <Auxiliary>
-
-        <EditSubCatagoryModal ref={"editSubCatModal"} editSubData={this.state.editSubData} isUpdated={this.isUpdated} />
+        <EditSubCategoryModal
+          ref={"editSubCatModal"}
+          editSubData={this.state.editSubData}
+          isUpdated={this.isUpdated}
+        />
         <div className="bg"></div>
         <div className="Dcentered">
-          <SubcatagoriesTree
+          <SubcategoriesTree
             ref="subtree"
             getSelectedItem={this.getSelectedItem}
           />
         </div>
         <div className="Ccentered">
-          <SubcatagoriesAggrid
+          <SubcategoriesAggrid
             ref={"subAggrid"}
             addBtnEnable={this.state.addBtnEnable}
-            catagoryData={this.state.catagoryData}
-            editSubCatagoryData={this.editSubCatagoryData}
+            categoryData={this.state.categoryData}
+            editSubCategoryData={this.editSubCategoryData}
           />
         </div>
       </Auxiliary>
@@ -74,4 +76,4 @@ class SubCatagories extends Component {
   }
 }
 
-export default SubCatagories;
+export default SubCategories;

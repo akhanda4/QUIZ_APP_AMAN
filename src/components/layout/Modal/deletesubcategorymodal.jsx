@@ -4,7 +4,7 @@ import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/Modal.css";
 import $ from "jquery";
 
-class deletesubcatagorymodal extends Component {
+class deletesubcategorymodal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,9 +25,9 @@ class deletesubcatagorymodal extends Component {
       this.rowData = rowdata;
     }
   };
-  deleteSubCatagoryAndClose = () => {
+  deleteSubCategoryAndClose = () => {
     $.ajax({
-      url: "http://localhost:8000/deletesubcatagory",
+      url: "http://localhost:8000/deletesubcategory",
       type: "POST",
       data: this.rowData,
       success: function(response) {
@@ -35,7 +35,7 @@ class deletesubcatagorymodal extends Component {
           console.log(response);
 
           //   if (response[1][0] == 1) {
-          //     console.log("subCatagory deleted");
+          //     console.log("subCategory deleted");
           //   }
           //   if (response[2][0] == 1) {
           //     console.log("questions deleted");
@@ -57,19 +57,19 @@ class deletesubcatagorymodal extends Component {
       <Auxiliary>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Delete SubCatagory</Modal.Title>
+            <Modal.Title>Delete SubCategory</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Modal.Title>
-              Are you sure you want to Delete this SubCatagory
+              Are you sure you want to Delete this SubCategory
             </Modal.Title>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={this.deleteSubCatagoryAndClose}>
-              Delete SubCatagory
+            <Button variant="primary" onClick={this.deleteSubCategoryAndClose}>
+              Delete SubCategory
             </Button>
           </Modal.Footer>
         </Modal>
@@ -78,4 +78,4 @@ class deletesubcatagorymodal extends Component {
   }
 }
 
-export default deletesubcatagorymodal;
+export default deletesubcategorymodal;

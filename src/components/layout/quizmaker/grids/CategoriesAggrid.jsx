@@ -3,13 +3,13 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
-import "../../../../public/css/CatagoriesAggrid.css";
+import "../../../../public/css/CategoriesAggrid.css";
 import Modal from "../../Modal/modal.jsx";
-import DeleteModal from "../../Modal/deletecatagorymodal.jsx";
+import DeleteModal from "../../Modal/deletecategorymodal.jsx";
 import $ from "jquery";
 import { MdCreate, MdDeleteForever } from "react-icons/md";
 import Auxiliary from "../../../auxillary/Auxillary.jsx";
-import EditCatagoryModal from "../../Modal/EditCatagoryModal.jsx";
+import EditCategoryModal from "../../Modal/EditCategoryModal.jsx";
 import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "CATAGORY", field: "catagory", width: 360 },
+        { headerName: "CATEGORY", field: "category", width: 360 },
         {
           headerName: "EDIT",
           field: "edit",
@@ -61,13 +61,13 @@ class App extends Component {
       ],
       rowData: null,
       deleted: false,
-      editCatagoryId: null
+      editCategoryId: null
     };
     this.pageNo = 0;
   }
   componentDidMount() {
     let page = $.ajax({
-      url: "http://localhost:8000/getcatagories",
+      url: "http://localhost:8000/getcategories",
       type: "GET",
       success: function(response) {
         if (response) {
@@ -85,13 +85,13 @@ class App extends Component {
     this.api = params.api;
     this.columnApi = params.columnApi;
   };
-  addCatagory = params => {
+  addCategory = params => {
     this.refs.ModalRef.handleShow();
   };
   isAdded = check => {
     if (check === true) {
       $.ajax({
-        url: "http://localhost:8000/getcatagories",
+        url: "http://localhost:8000/getcategories",
         type: "GET",
         success: function(response) {
           if (response) {
@@ -108,7 +108,7 @@ class App extends Component {
   };
   refreshGrid = () => {
     $.ajax({
-      url: "http://localhost:8000/getcatagories",
+      url: "http://localhost:8000/getcategories",
       type: "GET",
       success: function(response) {
         if (response) {
@@ -128,9 +128,9 @@ class App extends Component {
     this.refreshGrid();
   };
   editRow = event => {
-    let editCatagoryId = this.state.rowData[event.currentTarget.id];
+    let editCategoryId = this.state.rowData[event.currentTarget.id];
     this.setState({
-      editCatagoryId: editCatagoryId
+      editCategoryId: editCategoryId
     });
     this.refs.EditCatgoryModalRef.handleShow();
   };
@@ -143,9 +143,9 @@ class App extends Component {
     return (
       <Auxiliary>
         <Modal ref={"ModalRef"} isAdded={this.isAdded} />
-        <EditCatagoryModal
+        <EditCategoryModal
           ref={"EditCatgoryModalRef"}
-          editCatagoryId={this.state.editCatagoryId}
+          editCategoryId={this.state.editCategoryId}
           isUpdated={this.isUpdated}
         />
         <DeleteModal ref={"deleteModalRef"} refreshGrid={this.refreshGrid} />
@@ -162,9 +162,9 @@ class App extends Component {
                 <Button
                   variant="outline-light"
                   className="mr-sm-3"
-                  onClick={this.addCatagory}
+                  onClick={this.addCategory}
                 >
-                  Add Catagory
+                  Add Category
                 </Button>
                 <FormControl
                   type="text"
