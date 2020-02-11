@@ -11,6 +11,8 @@ import "../../public/css/play.css";
 import Auxiliary from "../auxillary/Auxillary.jsx";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class homepage extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -21,25 +23,20 @@ class homepage extends React.PureComponent {
       selectedItemId: ""
     };
   }
-  getCatagoryName = obj => {
-    console.log(obj.cat_id);
-  };
+
   componentDidMount() {
     $.ajax({
       url: "http://localhost:8000/getcatagoriesandsubcatagories",
       type: "GET",
-      success: function (response) {
+      success: function(response) {
         if (response) {
-          console.log(response);
           const res = JSON.parse(response);
           this.setState({
             source: res
           });
-        } else {
-          console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });
@@ -58,8 +55,9 @@ class homepage extends React.PureComponent {
     }
   };
   disabledBtn = () => {
-    console.log("dsa");
-    //launch a notification that please select a subcatagory
+    document.getElementById("homepage_error_message").innerHTML =
+      "Please select a subcategory from left Panel!";
+    this.refs.msgNotificationError.open();
   };
   getId = () => {
     this.props.getId(this.state.selectedItemId);
@@ -89,6 +87,32 @@ class homepage extends React.PureComponent {
     {
       return this.state.source.length ? (
         <Auxiliary>
+          <JqxNotification
+            ref={"msgNotificationError"}
+            width={250}
+            position={"top-right"}
+            opacity={0.9}
+            autoOpen={false}
+            autoClose={true}
+            animationOpenDelay={800}
+            autoCloseDelay={3000}
+            template={"error"}
+          >
+            <div id="homepage_error_message"></div>
+          </JqxNotification>
+          <JqxNotification
+            ref={"msgNotificationSuccess"}
+            width={250}
+            position={"top-right"}
+            opacity={0.9}
+            autoOpen={false}
+            autoClose={true}
+            animationOpenDelay={800}
+            autoCloseDelay={3000}
+            template={"success"}
+          >
+            <div id="homepage_sucess_message"></div>
+          </JqxNotification>
           <div className="quizheader">Welcome to Quizia</div>
           <div className="bg-text">
             <p>Please select a catagory from the left panel.</p>
@@ -106,8 +130,8 @@ class homepage extends React.PureComponent {
           </div>
         </Auxiliary>
       ) : (
-          <p>Loading....</p>
-        );
+        <p>Loading....</p>
+      );
     }
   }
 }

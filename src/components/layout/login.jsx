@@ -6,6 +6,8 @@ import { Button, Navbar, Nav } from "react-bootstrap";
 import { Route, Redirect } from "react-router-dom";
 import $ from "jquery";
 import Auxiliary from "../auxillary/Auxillary.jsx";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+import QuizMaker from "../layout/quizmaker/quizmaker.jsx";
 
 export default class login extends Component {
   constructor(props) {
@@ -35,25 +37,29 @@ export default class login extends Component {
     let credentials = {};
     credentials.email = document.getElementById("email").value;
     credentials.password = document.getElementById("pwd").value;
-    cookies.set("email", credentials.email);
     $.ajax({
       url: "http://localhost:8000/login",
       data: credentials,
       type: "POST",
       success: response => {
         if (response.length) {
-          if (typeof response === "string") {
-            response = JSON.parse(response);
-          }
-          this.props.authenticated();
+          console.log(response);
           this.setState(
             {
               authenticated: true
             },
-            () => {}
+            () => { }
           );
+          cookies.set("email", credentials.email);
+          setTimeout(() => {
+            this.props.authenticated();
+          }, 200);
         } else {
-          <Route path="/admin" exact render={() => <Login />} />;
+          if (response.length === 0) {
+            document.getElementById("login_error_message").innerHTML = "Wrong Email or Password";
+            this.refs.msgNotificationError.open();
+            return;
+          }
         }
       },
       error: response => {
@@ -72,13 +78,39 @@ export default class login extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="login_error_message"></div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="login_sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <Homenavbar />
         <div className="main-content">
           {this.state.authenticated ? (
             <Redirect to="/admin" />
           ) : (
-            <Redirect to="/login" />
-          )}
+              <Redirect to="/login" />
+            )}
           <form
             onSubmit={event => this.validate(event)}
             id="form"

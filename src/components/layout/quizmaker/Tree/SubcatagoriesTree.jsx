@@ -20,14 +20,11 @@ class App extends React.PureComponent {
       success: function(response) {
         if (response) {
           let str = JSON.parse(response);
-          console.log(str);
           let data = [...this.state.source];
           data.push(str);
           this.setState({
             source: data[0]
           });
-        } else {
-          console.log("no response");
         }
       }.bind(this),
       error: function(response) {

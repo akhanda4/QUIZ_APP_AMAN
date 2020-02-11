@@ -19,29 +19,24 @@ class playquiz extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.playId !== this.state.playId) {
-      console.log("fetching");
-
       let data = this.state.playId;
       $.ajax({
         url: "http://localhost:8000/getquestions",
         type: "GET",
         data: data,
-        success: function (response) {
+        success: function(response) {
           if (response) {
-            console.log(response);
             this.setState(
               {
                 questionsList: response
               },
               () => {
-                console.log("questions fetched");
+                console.log("");
               }
             );
-          } else {
-            console.log("no response");
           }
         }.bind(this),
-        error: function (response) {
+        error: function(response) {
           console.log(response);
         }
       });
@@ -56,7 +51,6 @@ class playquiz extends Component {
   }
   switchQuestions = event => {
     let answer = event.target.innerText;
-    console.log(answer);
     let question_id = document.getElementById("hiddenId").innerText;
     let questionsList = [...this.state.questionsList];
     let answerdata = questionsList.filter(question => {
@@ -64,7 +58,6 @@ class playquiz extends Component {
     });
 
     if (answerdata[0].correct === answer) {
-      console.log("yaahooo correct answer");
       let oldScore = this.state.score;
       let newScore = oldScore + 1;
       this.setState(
@@ -74,7 +67,7 @@ class playquiz extends Component {
         () => {
           if (
             this.state.score >= this.state.questionsList.length ||
-            this.state.questionNo >= this.state.questionsList.length - 1
+            this.state.questionNo >= this.state.questionsList.length
           ) {
             this.refs.scoreModal.handleShow(this.state.score);
             return;
@@ -103,7 +96,6 @@ class playquiz extends Component {
     });
   };
   setQuestion = index => {
-    console.log("setting question");
     let question = document.getElementById("question");
     question.innerHTML = this.state.questionsList[index].question;
     let hiddenId = document.getElementById("hiddenId");
@@ -111,7 +103,6 @@ class playquiz extends Component {
       this.state.questionsList[index]._id
     );
     hiddenId.innerHTML = JSON.parse(stringifyQuestionId).$oid;
-
     let options = this.state.questionsList[index].options;
     options.push(this.state.questionsList[index].correct);
     for (var i = options.length - 1; i > 0; i--) {
@@ -121,20 +112,11 @@ class playquiz extends Component {
       options[j] = temp;
     }
     options = [...new Set(options)];
-    console.log("shuffled", options);
 
-    document.getElementById("opt1").innerHTML = this.state.questionsList[
-      index
-    ].options[0];
-    document.getElementById("opt2").innerHTML = this.state.questionsList[
-      index
-    ].options[1];
-    document.getElementById("opt3").innerHTML = this.state.questionsList[
-      index
-    ].options[2];
-    document.getElementById("opt4").innerHTML = this.state.questionsList[
-      index
-    ].options[3];
+    document.getElementById("opt1").innerHTML = options[0];
+    document.getElementById("opt2").innerHTML = options[1];
+    document.getElementById("opt3").innerHTML = options[2];
+    document.getElementById("opt4").innerHTML = options[3];
   };
   restartQuiz = () => {
     this.setState({
@@ -142,30 +124,20 @@ class playquiz extends Component {
       score: 0,
       playId: this.state.playId
     });
-    this.refs.scoreModal.handleClose("restart");
-  };
-  goBack = () => {
-    this.setState({
-      goback: true
-    });
+    this.refs.scoreModal.handleClose();
   };
   render() {
     if (this.state.questionsList.length) {
       if (this.state.questionNo < this.state.questionsList.length) {
         this.setQuestion(this.state.questionNo);
-      } else {
-        console.log("your score is: ", this.state.score);
       }
-    }
-    if (this.state.goback === true) {
-      <Redirect to="/homepage" />;
     }
     return (
       <Auxiliary>
         <ScoreModal
           ref={"scoreModal"}
-          goBack={this.goBack}
           restartQuiz={this.restartQuiz}
+          redirect={this.props.redirect}
         />
         <div className="bg"></div>
         <div className="bg-text txt">

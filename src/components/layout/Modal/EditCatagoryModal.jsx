@@ -30,7 +30,6 @@ class EditCatagoryModal extends Component {
             return;
         }
         editData._id = this.props.editCatagoryId._id['$oid'];
-        console.log(editData);
         $.ajax({
             url: "http://localhost:8000/updatecatagory",
             type: "PUT",

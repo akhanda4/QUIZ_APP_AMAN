@@ -14,13 +14,14 @@ class modal extends Component {
     };
   }
   handleClose = check => {
-    this.setState({
-      show: false
-    });
-    this.props.goBack();
-    // if(check === "goback"){
-    //     this.props.goBack();
-    // }
+    this.setState(
+      {
+        show: false
+      },
+      () => {
+        this.props.redirect();
+      }
+    );
   };
   handleShow = score => {
     this.setState({
@@ -32,7 +33,6 @@ class modal extends Component {
     this.props.restartQuiz();
     return;
   };
-  restoreFocus = () => { };
   render() {
     return (
       <Auxiliary>
@@ -45,12 +45,7 @@ class modal extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Link to="/homepage">
-              <Button
-                variant="secondary"
-                onClick={event => this.handleClose("goback")}
-              >
-                Back
-              </Button>
+              <Button variant="secondary">Back</Button>
             </Link>
             <Button variant="primary" onClick={this.restartQuiz}>
               Restart

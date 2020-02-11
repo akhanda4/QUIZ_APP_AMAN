@@ -10,10 +10,7 @@ import { Navbar, Form, FormControl, Button, Pagination } from "react-bootstrap";
 import "../../../../public/css/QuestionsAggrid.css";
 import EditQuestionModal from "../../Modal/EditQuestionModal.jsx";
 import $ from "jquery";
-import {
-  MdCreate,
-  MdDeleteForever
-} from "react-icons/md";
+import { MdCreate, MdDeleteForever } from "react-icons/md";
 class QuestionsAggrid extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +59,7 @@ class QuestionsAggrid extends Component {
         }
       ],
       rowData: [],
-      editedRowdata: ''
+      editedRowdata: ""
     };
   }
   addQuestion = () => {
@@ -74,7 +71,6 @@ class QuestionsAggrid extends Component {
     }
   };
   fillQuestionsState(questionsList) {
-    console.log(questionsList);
     this.setState({
       rowData: questionsList
     });
@@ -83,20 +79,19 @@ class QuestionsAggrid extends Component {
     let rowdata = this.state.rowData[event.currentTarget.id];
     this.refs.deleteQuestionModalRef.handleShow(rowdata);
   };
-  editRow = (event) => {
+  editRow = event => {
     let rowdata = this.state.rowData[event.currentTarget.id];
-    console.log(rowdata);
     this.setState({
       editedRowdata: rowdata
-    })
+    });
     setTimeout(() => {
       this.refs.editQuestionModalRef.setData(rowdata);
     }, 350);
     this.refs.editQuestionModalRef.handleShow();
-  }
-  isUpdated = (check) => {
+  };
+  isUpdated = check => {
     this.props.isQuestionUpdated(true);
-  }
+  };
 
   render() {
     const btn = this.props.addBtnEnable ? (
@@ -108,17 +103,21 @@ class QuestionsAggrid extends Component {
         Add Question
       </Button>
     ) : (
-        <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
-          Add Question
+      <Button variant="outline-light" className="mr-sm-3" data-micron="flicker">
+        Add Question
       </Button>
-      );
+    );
     return (
       <Auxiliary>
         <DeleteQuestionModal
           ref="deleteQuestionModalRef"
           isDeleted={this.props.isDeleted}
         />
-        <EditQuestionModal ref="editQuestionModalRef" rowdata={this.state.editedRowdata} isUpdated={this.isUpdated} />
+        <EditQuestionModal
+          ref="editQuestionModalRef"
+          rowdata={this.state.editedRowdata}
+          isUpdated={this.isUpdated}
+        />
         <QuestionsModal
           id={this.props.id}
           ref={"QuestionsModalRef"} /*isAdded={this.isAdded} */

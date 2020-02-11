@@ -18,6 +18,11 @@ export default class App extends PureComponent {
     };
     this.PlayQuizPage = React.createRef();
   }
+  componentDidUpdate(prevProps, prevState) {
+    this.setState({
+      redirectToHomepage: false
+    });
+  }
   componentDidMount() {
     this.authenticated();
   }
@@ -39,7 +44,6 @@ export default class App extends PureComponent {
     });
   };
   redirect = value => {
-    console.log("inapp redirect");
     this.setState({
       redirectToHomepage: true
     });
@@ -48,6 +52,20 @@ export default class App extends PureComponent {
     return (
       <BrowserRouter>
         <Auxillary>
+          <Route
+            path="/"
+            exact
+            render={() => <Login authenticated={this.authenticated} />}
+          />
+          {this.state.redirectToHomepage ? (
+            <Route
+              path="/homepage"
+              exact
+              render={() => <Homepage getId={this.getId} />}
+            />
+          ) : (
+            ""
+          )}
           <Route
             path="/homepage"
             exact
@@ -63,18 +81,13 @@ export default class App extends PureComponent {
           <Route
             path="/login"
             exact
-            render={() => (
-              <Login
-                authenticated={this.authenticated}
-              />
-            )}
+            render={() => <Login authenticated={this.authenticated} />}
           />
-          {this.state.isAuthenticated ? <Route
-            path="/admin"
-            render={() => (
-              <Quizmaker />
-            )}
-          /> : ''}
+          {this.state.isAuthenticated ? (
+            <Route path="/admin" render={() => <Quizmaker />} />
+          ) : (
+            ""
+          )}
           {this.state.redirectToHomepage ? <Redirect to="/homepage" /> : ""}
         </Auxillary>
       </BrowserRouter>

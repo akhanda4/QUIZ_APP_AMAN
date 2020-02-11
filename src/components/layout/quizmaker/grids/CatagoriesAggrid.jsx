@@ -66,23 +66,20 @@ class App extends Component {
     this.pageNo = 0;
   }
   componentDidMount() {
-    let page =
-      $.ajax({
-        url: "http://localhost:8000/getcatagories",
-        type: "GET",
-        success: function (response) {
-          if (response) {
-            this.setState({
-              rowData: response
-            });
-          } else {
-            console.log("no response");
-          }
-        }.bind(this),
-        error: function (response) {
-          console.log(response);
+    let page = $.ajax({
+      url: "http://localhost:8000/getcatagories",
+      type: "GET",
+      success: function(response) {
+        if (response) {
+          this.setState({
+            rowData: response
+          });
         }
-      });
+      }.bind(this),
+      error: function(response) {
+        console.log(response);
+      }
+    });
   }
   onGridReady = params => {
     this.api = params.api;
@@ -96,16 +93,14 @@ class App extends Component {
       $.ajax({
         url: "http://localhost:8000/getcatagories",
         type: "GET",
-        success: function (response) {
+        success: function(response) {
           if (response) {
             this.setState({
               rowData: response
             });
-          } else {
-            console.log("no response");
           }
         }.bind(this),
-        error: function (response) {
+        error: function(response) {
           console.log(response);
         }
       });
@@ -115,16 +110,14 @@ class App extends Component {
     $.ajax({
       url: "http://localhost:8000/getcatagories",
       type: "GET",
-      success: function (response) {
+      success: function(response) {
         if (response) {
           this.setState({
             rowData: response
           });
-        } else {
-          console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });
@@ -135,24 +128,26 @@ class App extends Component {
     this.refreshGrid();
   };
   editRow = event => {
-
     let editCatagoryId = this.state.rowData[event.currentTarget.id];
     this.setState({
       editCatagoryId: editCatagoryId
-    })
-    console.log(editCatagoryId);
+    });
     this.refs.EditCatgoryModalRef.handleShow();
   };
-  isUpdated = (check) => {
+  isUpdated = check => {
     if (check === true) {
       this.isAdded(true);
     }
-  }
+  };
   render() {
     return (
       <Auxiliary>
         <Modal ref={"ModalRef"} isAdded={this.isAdded} />
-        <EditCatagoryModal ref={"EditCatgoryModalRef"} editCatagoryId={this.state.editCatagoryId} isUpdated={this.isUpdated} />
+        <EditCatagoryModal
+          ref={"EditCatgoryModalRef"}
+          editCatagoryId={this.state.editCatagoryId}
+          isUpdated={this.isUpdated}
+        />
         <DeleteModal ref={"deleteModalRef"} refreshGrid={this.refreshGrid} />
         <div
           className="ag-theme-balham"

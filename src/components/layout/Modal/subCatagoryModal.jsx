@@ -27,12 +27,12 @@ class modal extends Component {
     let subC = document.getElementById("subcatagory").value;
     subC = subC.trim();
     if (!subC) {
-      document.getElementById("subcat_error_message").innerHTML = "Invalid Inputs";
+      document.getElementById("subcat_error_message").innerHTML =
+        "Invalid Inputs";
       this.refs.msgNotificationError.open();
       return;
     }
     let activeCatagoryId = this.props.activeCatagory.id;
-    console.log(subC, activeCatagoryId);
 
     let data = {};
     data.subcatagory = document.getElementById("subcatagory").value;
@@ -41,7 +41,7 @@ class modal extends Component {
       url: "http://localhost:8000/addsubcatagory",
       type: "POST",
       data: data,
-      success: function (response) {
+      success: function(response) {
         if (response) {
           console.log(response);
           if (response !== "1") {
@@ -60,7 +60,7 @@ class modal extends Component {
           console.log("no response");
         }
       }.bind(this),
-      error: function (response) {
+      error: function(response) {
         console.log(response);
       }
     });

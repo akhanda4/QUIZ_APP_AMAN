@@ -14,14 +14,12 @@ class QuestionsTree extends React.PureComponent {
       source: ""
     };
   }
-  getCatagoryName = obj => {
-    console.log(obj.cat_id);
-  };
+
   componentDidMount() {
     $.ajax({
       url: "http://localhost:8000/getcatagoriesandsubcatagories",
       type: "GET",
-      success: function(response) {
+      success: function (response) {
         if (response) {
           const res = JSON.parse(response);
           this.setState({
@@ -31,7 +29,7 @@ class QuestionsTree extends React.PureComponent {
           console.log("no response");
         }
       }.bind(this),
-      error: function(response) {
+      error: function (response) {
         console.log(response);
       }
     });
