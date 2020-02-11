@@ -60,11 +60,7 @@ class deletecategorymodal extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Delete Category</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <Modal.Title>
-              Are you sure you want to Delete this Category
-            </Modal.Title>
-          </Modal.Body>
+          <Modal.Body>Are you sure you want to Delete this Category</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel

@@ -60,9 +60,7 @@ class deletesubcategorymodal extends Component {
             <Modal.Title>Delete SubCategory</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Modal.Title>
-              Are you sure you want to Delete this SubCategory
-            </Modal.Title>
+            Are you sure you want to Delete this SubCategory
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
