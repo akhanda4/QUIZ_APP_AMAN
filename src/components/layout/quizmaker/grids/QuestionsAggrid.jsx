@@ -16,7 +16,12 @@ class QuestionsAggrid extends Component {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "QUESTIONS", field: "question", width: 360 },
+        {
+          headerName: "QUESTIONS",
+          field: "question",
+          suppressSizeToFit: true,
+          width: 425
+        },
         {
           headerName: "EDIT",
           field: "edit",
@@ -40,7 +45,7 @@ class QuestionsAggrid extends Component {
         {
           headerName: "DELETE",
           field: "delete",
-          width: 70,
+          width: 90,
           sortable: false,
           cellRendererFramework: params => {
             this.setState({ deletecelldata: params.data });
@@ -128,7 +133,7 @@ class QuestionsAggrid extends Component {
           className="ag-theme-balham"
           style={{
             height: "300px",
-            width: "600px"
+            width: "580px"
           }}
         >
           <div className="ag-grid-div">

@@ -15,7 +15,12 @@ class App extends Component {
     super(props);
     this.state = {
       columnDefs: [
-        { headerName: "CATEGORY", field: "subcategory", width: 360 },
+        {
+          headerName: "CATEGORY",
+          suppressSizeToFit: true,
+          field: "subcategory",
+          width: 425
+        },
         {
           headerName: "EDIT",
           field: "edit",
@@ -39,7 +44,7 @@ class App extends Component {
         {
           headerName: "DELETE",
           field: "delete",
-          width: 70,
+          width: 90,
           sortable: false,
           cellRendererFramework: params => {
             this.setState({ deletecelldata: params.data });
@@ -175,7 +180,7 @@ class App extends Component {
           className="ag-theme-balham"
           style={{
             height: "300px",
-            width: "600px"
+            width: "580px"
           }}
         >
           <div className="ag-grid-div">

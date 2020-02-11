@@ -3,6 +3,8 @@ import Auxiliary from "../../auxillary/Auxillary.jsx";
 import { Button, Modal, FormControl, InputGroup } from "react-bootstrap";
 import "../../../public/css/Modal.css";
 import $ from "jquery";
+import JqxNotification from "jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification";
+
 class modal extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,12 @@ class modal extends Component {
   };
   AddAndClose = () => {
     let category = document.getElementById("category").value;
+    if (!category.trim()) {
+      document.getElementById("category_error_message").innerHTML =
+        "This field can't be empry!";
+      this.refs.msgNotificationError.open();
+      return;
+    }
     $.ajax({
       url: "http://localhost:8000/addcategory",
       type: "POST",
@@ -42,6 +50,32 @@ class modal extends Component {
   render() {
     return (
       <Auxiliary>
+        <JqxNotification
+          ref={"msgNotificationError"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"error"}
+        >
+          <div id="category_error_message"></div>
+        </JqxNotification>
+        <JqxNotification
+          ref={"msgNotificationSuccess"}
+          width={250}
+          position={"top-right"}
+          opacity={0.9}
+          autoOpen={false}
+          autoClose={true}
+          animationOpenDelay={800}
+          autoCloseDelay={3000}
+          template={"success"}
+        >
+          <div id="category_sucess_message">Updated Successfully.</div>
+        </JqxNotification>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Categories</Modal.Title>
